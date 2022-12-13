@@ -1,0 +1,330 @@
+2/9/21
+
+Here is a magnigude limiting search in Simbad:
+
+result = Simbad.query_criteria('Vmag>10', otype='SNR')
+
+The type of object specified was 'SNR' which I'm not sure what that is.
+
+The set of imports used for this were:
+
+import objectRaDec
+from   raDecLst import Ra, Dec, Lst, Alt, Azi
+import astropy.time
+from   astropy.time        import Time
+from   astropy             import units as u
+from   astropy.coordinates import EarthLocation
+from   astropy.coordinates import SkyCoord
+from   astropy.coordinates import AltAz
+from   datetime import date
+from astroquery.simbad import Simbad
+
+These also worked:
+
+result = Simbad.query_criteria('Vmag>8.0', otype='SNR')
+result = Simbad.query_criteria('Vmag>8.0', cat  ='M')
+result = Simbad.query_criteria(cat='M')
+
+Trying to get the NCG catalog and that is not working out very well.
+
+When accessing the NGC catalog I was getting timeouts. I started using
+the ROW_LIMIT to limit things.
+
+Simbad.ROW_LIMIT= 1000
+
+
+
+2/3/21
+
+Ouput from a run with the real hardware with the brakes all off.
+
+pi@raspberrypi4-1:~/git/cgem-controller $ python3 cgemObserveMessierObjects.py 
+Enter 1 for simulation 2 for hardware 2
+Done with spawnSimulator.SpawnSimulator, with argument:  False
+Invoke cgemInterface.CgemInterface()
+Done with cgemInterface.CgemInterface()
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+Loop over all messier objects.
+First Messier object:  b'M  55'
+Bin number      : 1
+Name            : b'M  82'
+RA   hr min sec : 09:55:52
+Dec deg min sec : +69:40:52
+Local Hour Angle: -7
+LST  hr min sec : 17:32:31
+Altitude        : 24
+Azimuth         : 339
+
+  Name :  b'M  82'
+   alt :  24.833150102919145
+   azi :  339.39049108147816
+1 to observe, 2 to skip, 3 to exit : 1
+x:  1
+object RA  (hr:min:sec)  :  09 : 55 : 52
+object Dec (deg:min:sec) :  +69 : 40 : 46.93
+newRaHex  :  b'69EE8D00'
+newDecHex :  b'318CCD00'
+Invoking gotoCommandWithHP
+writeString :  b'r69EE8D00,318CCD00'
+Read after gotoCommand: b'#'
+In requestHighPrecisionRaDec
+raHex, decHex  b'69ECD500'   b'318D2600'
+telescopeRaDecCgem: [b'69ECD500', b'318D2600']
+Bin number      : 1
+Name            : b'M  81'
+RA   hr min sec : 09:55:33
+Dec deg min sec : +69:03:33
+Local Hour Angle: -7
+LST  hr min sec : 17:32:31
+Altitude        : 24
+Azimuth         : 338
+
+  Name :  b'M  81'
+   alt :  24.462764372112144
+   azi :  338.8502444994533
+1 to observe, 2 to skip, 3 to exit : 3
+x:  3
+Setting loopOverMessierObjects to : False
+Finished the list one time, loop again
+1 to loop again, 2 to exit : 2
+setting loopOverMessierObjects to:  False
+updateObjectTable
+Quitting, closing simulator, and serial interfaces.
+
+Followed by running testSerial against the actual hardware.
+
+pi@raspberrypi4-1:~/git/cgem-controller $ python3 testSerial.py 
+Enter 1 for simulation 2 for hardware 2
+Comm Working Flag :  True
+Aligment          :  True
+GotoInProgress    :  False
+RTC location      :  [34.82555555555556, 34, 49, 32, 0, 119.03166666666667, 119, 1, 54, 1]
+Time              :  [9, 29, 11, 2, 3, 2021, 8, False]
+response :  b'\x02#'
+response[0] :  2
+response[1] :  35
+Tracking mode     :  EQ North
+In requestHighPrecisionRaDec
+raHex, decHex  b'69D35800'   b'31981A00'
+telescopeRaDecCgem:  [b'69D35800', b'31981A00']
+RA  :  [9, 55, 16]
+Dec :  [69, 44, 30]
+In requestLowPrecisionRaDec
+raHex, decHex  b'69D3'   b'3198'
+telescopeRaDecCgem:  [b'69D3', b'3198']
+Quitting, closing simulator, and serial interfaces.
+
+
+1/29/21
+
+python3 testMotion.py 
+Aligment          :  True
+In requestHighPrecisionRaDec
+raHex, decHex  b'DAC16300'   b'3B7FC600'
+telescopeRaDecCgem:  [b'DAC16300', b'3B7FC600']
+RA (hr,  min, sec) :  [20, 30, 29]
+Dec(deg, min, sec) :  [83, 40, 14]
+Calling gotoCommandWithHP
+     raHex  :  b'DAC16300'
+     decHex :  b'3B7FC600'
+In gotoCommandWithHP
+writeString :  b'rDAC16300,3B7FC600'
+Read after gotoCommand: b'#'
+motionFlag:  False
+motionFlag:  False
+motionFlag:  False
+motionFlag:  False
+newRa  :  <convertRaDecToCgemUnits.ConvertRa object at 0xb65131d0>
+newDec :  <convertRaDecToCgemUnits.ConvertDec object at 0xb6513190>
+Quitting, closing simulator, and serial interfaces.
+
+1/28/21
+
+Things look like they are starting to work. Here is the output from
+testSerial.
+
+commit 705263d1b9618d6fe2daa54f083975277939f76e
+
+python3 testSerial.py 
+Enter 1 for simulation 2 for hardware 2
+In echoCommand
+In echoCommand, response:  b'a#'
+Comm Working Flag :  True
+Aligment          :  True
+GotoInProgress    :  False
+RTC location      :  [34.82555555555556, 34, 49, 32, 0, 119.03166666666667, 119, 1, 54, 1]
+Time              :  [20, 21, 44, 1, 28, 2021, 8, False]
+Tracking mode     :  Undefined
+In requestHighPrecisionRaDec
+raHex, decHex  b'DC468B00'   b'236CA400'
+telescopeRaDecCgem:  [b'DC468B00', b'236CA400']
+RA  :  [20, 39, 3]
+Dec :  [49, 48, 55]
+In gotoCommandWithHP
+writeString :  b'rDC468B00,236CA400'
+Read after gotoCommand: b'#'
+In requestLowPrecisionRaDec
+raHex, decHex  b'DECF'   b'259C'
+telescopeRaDecCgem:  [b'DECF', b'259C']
+Quitting, closing simulator, and serial interfaces.
+
+
+1/27/21
+
+Enter 1 for simulation 2 for hardware 2
+in commWorking
+In echoCommand
+In echoCommand, response:  b'a#'
+commWorkingFlag :  True
+In alignmentComplete
+In alignmentComplete, response    :  b'\x01#'
+In alignmentComplete, response[0] :  1
+aligment        :  True
+In gotoInProgress
+correct response
+gotoInProgress response:  b'0#'
+response[0]:  48
+gotoInProgress  :  True
+in rtcGetLocation
+correct length response
+response length:  9
+get location, bytes 1-8:  34   49   32   0   119   1   54   1
+location        :  [34.82555555555556, 34, 49, 32, 0, 119.03166666666667, 119, 1, 54, 1]
+In getTime
+getTime response:  b'\x15\x00\x1a\x01\x1b\x15\xf8\x00#'
+get time response:  b'\x15\x00\x1a\x01\x1b\x15\xf8\x00#'
+get time, bytes 1-8:  21   0   26   1   27   21   248   0
+time            :  [21, 0, 26, 1, 27, 2021, 8, False]
+In requestHighPrecisionRaDec
+requestHighPrecisionRaDec, bytes 1-17:  49   68   52   57   56   66   48   48   44   50   48   66   67   56   66   48   48
+telescopeRaDecCgem:  b'1D498B00,20BC8B00#'
+In requestLowPrecisionRaDec
+requestLowPrecisionRaDec, bytes 1-9:  49   68   52   65   44   50   48   66   68
+telescopeRaDecCgem:  b'1D498B00,20BC8B00#'
+Quitting, closing simulator, and serial interfaces.
+
+
+
+1/25/21
+
+
+In echoCommand, response:  b'a#'
+commWorkingFlag :  True
+In alignmentComplete, response    :  b'\x01#'
+In alignmentComplete, response[0] :  1
+aligment        :  True
+gotoInProgress  :  True
+get location, bytes 1-8:  34   49   32   0   119   1   54   1
+location        :  b'"1 \x00w\x016\x01#'
+get time, bytes 1-3:  19   24   41
+time            :  b'\x13\x18)\x01'
+tracking mode   :  b'\x18\x15'
+requestHighPrecisionRaDec, bytes 1-17:  248   0   35   2   35   68   67   66   67   69   68   48   48   44   50   49   67
+telescopeRaDecCgem:  b'\xf8\x00#\x02#DCBCED00,21CB'
+requestLowPrecisionRaDec, bytes 1-9:  49   57   48   48   35   68   67   66   68
+telescopeRaDecCgem:  b'1900#DCBD,'
+Quitting, closing simulator, and serial interfaces.
+shutdown running
+
+
+2021-01-2x
+
+python3 objectRaDec.py
+WARNING: AstropyDeprecationWarning: astropy.extern.six will be removed in 4.0, use the six module directly if it is still needed [astropy.extern.six]
+Traceback (most recent call last):
+  File "objectRaDec.py", line 204, in <module>
+    if dec_sec > 0:
+TypeError: '>' not supported between instances of 'str' and 'int'
+pi@raspberrypi4-1:~/git/cgem-controller $ 
+
+git checkout simulator
+
+Changed port to ./pty1
+
+Started socat with:
+
+socat -v -D -d -d PTY,link=./pty1 GOPEN:/dev/ttyUSB0 3> x.out
+
+In a second terminal python cgemObserveMessierObjects.py
+
+
+The program first spit out 'Comm not working and then continued to
+communicate. Telesdcocpe did not spit out the a# like it was supposed
+to.
+
+Read :  
+Comm not working and exit
+meanLST                      :  19h20m11.9578s
+19 20 11
+WARNING: Couldn't create u'cds_parsetab'. [Errno 13] Permission denied: u'/usr/lib/python2.7/dist-packages/astropy/units/format/cds_parsetab.py'
+WARNING: Couldn't write lextab module u'cds_lextab'. [Errno 13] Permission denied: u'/usr/lib/python2.7/dist-packages/astropy/units/format/cds_lextab.py'
+M 103
+   Bin number      : 1
+   Name            : M  82
+   RA   hr min sec : 09:55:52
+   Dec deg min sec : +69:40:52
+   Local Hour Angle: -9
+   LST  hr min sec : 19:20:11
+
+1 to observe, 2 to skip, 3 to exit 1
+gotoCommand: r69EE8D00,318CCD00
+Read after gotoCommand: 
+Attempting to parse read_until: 
+Attempting to parse read_until:
+
+The 'Attempting to parse read_until seemed in an infinite loop.
+
+The socat line I'm using doesn't appear to be displaying data from the
+telescope.
+
+Tried without socat and change cgemObserveMessier.py to use /dev/ttyUSB0
+Getting input from the telescope this time.
+
+After adding back in the two byte read into cgemInterface the loop
+with the 1 second delay looking for 0# started working
+
+Telescope drove to the postion of M82 as expected.
+
+Given the following inputs:
+
+   Bin number      : 2
+   Name            : M  68
+   RA   hr min sec : 12:39:27
+   Dec deg min sec : -26:44:27
+   Local Hour Angle: -6
+   LST  hr min sec : 19:35:24
+
+1 to observe, 2 to skip, 3 to exit 1
+gotoCommand: r87036900L,ECFB6400L
+
+The telescope drive to a declination of -69 degrees. So my convesion
+to cgem declination values is in error.
+
+For M60, with the the following inputs:
+   Bin number      : 2
+   Name            : M  60
+   RA   hr min sec : 12:43:40
+   Dec deg min sec : +11:33:40
+   Local Hour Angle: -6
+   LST  hr min sec : 19:41:47
+
+1 to observe, 2 to skip, 3 to exit 1
+gotoCommand: r87C35100L,08371600
+The telecope drove to:
+
+RA: 2 33 54
+Dec: -89
+
+   Bin number      : 2
+   Name            : M  64
+   RA   hr min sec : 12:56:43
+   Dec deg min sec : +21:40:43
+   Local Hour Angle: -6
+   LST  hr min sec : 19:56:7
+
+1 to observe, 2 to skip, 3 to exit 1
+gotoCommand: r8A153D00L,0F6B3500
+
+telescope drove to
+RA:    3  5 40
+DEC: -88 12 17

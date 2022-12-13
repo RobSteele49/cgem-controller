@@ -1,0 +1,4 @@
+2022/12/12 19:15:46 socat[908] N PTY is /dev/pts/2
+2022/12/12 19:15:46 socat[908] N opening undef "/dev/ttyUSB0" for reading and writing
+2022/12/12 19:15:46 socat[908] E open("/dev/ttyUSB0", 0102, 0666): Permission denied
+2022/12/12 19:15:46 socat[908] N exit(1)
