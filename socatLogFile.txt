@@ -1,27 +1,27 @@
-2022/12/12 19:42:38 socat[1464] N PTY is /dev/pts/7
-2022/12/12 19:42:38 socat[1464] N PTY is /dev/pts/8
+2022/12/12 20:02:39 socat[1557] N PTY is /dev/pts/7
+2022/12/12 20:02:39 socat[1557] N PTY is /dev/pts/8
   FD  type	device	inode	mode	links	uid	gid	rdev	size	blksize	blocks	atime				mtime				ctime				cloexec	flags	sigown	sigio
-   5: chrdev	0,60	2	020666	1	0	0	5,2	0	1024	0	Mon Dec 12 19:42:32 2022	Mon Dec 12 19:42:32 2022	Mon Dec 12 19:10:24 2022	1	x008002	0	0	/dev/ptmx 	IFLAGS=00000000 OFLAGS=00000004 CFLAGS=000000bd LFLAGS=00000a30 cc[0]=^C cc[1]=^\ cc[2]=x7F cc[3]=^U cc[4]=^D cc[5]=^@ cc[6]=^A cc[7]=^@ cc[8]=^Q cc[9]=^S cc[10]=^Z cc[11]=^@ cc[12]=^R cc[13]=^O cc[14]=^W cc[15]=^V cc[16]=^@ cc[17]=^@ cc[18]=^@ cc[19]=^@ cc[20]=^@ cc[21]=^@ cc[22]=^@ cc[23]=^@ cc[24]=^@ cc[25]=^@ cc[26]=^@ cc[27]=^@ cc[28]=^@ cc[29]=^@ cc[30]=^@ cc[31]=^@poll: OUT,
-   7: chrdev	0,60	2	020666	1	0	0	5,2	0	1024	0	Mon Dec 12 19:42:32 2022	Mon Dec 12 19:42:32 2022	Mon Dec 12 19:10:24 2022	1	x008002	0	0	/dev/ptmx 	IFLAGS=00000000 OFLAGS=00000004 CFLAGS=000000bd LFLAGS=00000a30 cc[0]=^C cc[1]=^\ cc[2]=x7F cc[3]=^U cc[4]=^D cc[5]=^@ cc[6]=^A cc[7]=^@ cc[8]=^Q cc[9]=^S cc[10]=^Z cc[11]=^@ cc[12]=^R cc[13]=^O cc[14]=^W cc[15]=^V cc[16]=^@ cc[17]=^@ cc[18]=^@ cc[19]=^@ cc[20]=^@ cc[21]=^@ cc[22]=^@ cc[23]=^@ cc[24]=^@ cc[25]=^@ cc[26]=^@ cc[27]=^@ cc[28]=^@ cc[29]=^@ cc[30]=^@ cc[31]=^@poll: OUT,
-2022/12/12 19:42:38 socat[1464] N starting data transfer loop with FDs [5,5] and [7,7]
-> 2022/12/12 19:42:40.146755  length=2 from=0 to=1
-Ka< 2022/12/12 19:42:40.147176  length=2 from=0 to=1
-a#> 2022/12/12 19:42:43.150652  length=1 from=2 to=2
-J< 2022/12/12 19:42:43.151055  length=2 from=2 to=3
-x#> 2022/12/12 19:42:46.154137  length=1 from=3 to=3
-L< 2022/12/12 19:42:46.154585  length=2 from=4 to=5
-0#> 2022/12/12 19:42:48.156566  length=1 from=4 to=4
-w< 2022/12/12 19:42:48.157170  length=9 from=6 to=14
-"...w...#> 2022/12/12 19:42:52.160969  length=1 from=5 to=5
-h< 2022/12/12 19:42:52.161476  length=10 from=15 to=24
-.*4\f\f....#> 2022/12/12 19:42:55.164595  length=1 from=6 to=6
-t< 2022/12/12 19:42:55.165023  length=2 from=25 to=26
-.#> 2022/12/12 19:42:58.168190  length=1 from=7 to=7
-e< 2022/12/12 19:42:58.168609  length=18 from=27 to=44
-34AB0500,12CE0500#> 2022/12/12 19:43:01.171602  length=1 from=8 to=8
-E< 2022/12/12 19:43:01.172399  length=10 from=45 to=54
-34AB,12CE#> 2022/12/12 19:43:05.182839  length=1 from=9 to=9
-q2022/12/12 19:43:05 socat[1464] N socat_signal(): handling signal 1
-2022/12/12 19:43:05 socat[1464] N exiting on signal 1
-2022/12/12 19:43:05 socat[1464] N socat_signal(): finishing signal 1
-2022/12/12 19:43:05 socat[1464] N exit(129)
+   5: chrdev	0,60	2	020666	1	0	0	5,2	0	1024	0	Mon Dec 12 20:02:35 2022	Mon Dec 12 20:02:35 2022	Mon Dec 12 19:10:24 2022	1	x008002	0	0	/dev/ptmx 	IFLAGS=00000000 OFLAGS=00000004 CFLAGS=000000bd LFLAGS=00000a30 cc[0]=^C cc[1]=^\ cc[2]=x7F cc[3]=^U cc[4]=^D cc[5]=^@ cc[6]=^A cc[7]=^@ cc[8]=^Q cc[9]=^S cc[10]=^Z cc[11]=^@ cc[12]=^R cc[13]=^O cc[14]=^W cc[15]=^V cc[16]=^@ cc[17]=^@ cc[18]=^@ cc[19]=^@ cc[20]=^@ cc[21]=^@ cc[22]=^@ cc[23]=^@ cc[24]=^@ cc[25]=^@ cc[26]=^@ cc[27]=^@ cc[28]=^@ cc[29]=^@ cc[30]=^@ cc[31]=^@poll: OUT,
+   7: chrdev	0,60	2	020666	1	0	0	5,2	0	1024	0	Mon Dec 12 20:02:35 2022	Mon Dec 12 20:02:35 2022	Mon Dec 12 19:10:24 2022	1	x008002	0	0	/dev/ptmx 	IFLAGS=00000000 OFLAGS=00000004 CFLAGS=000000bd LFLAGS=00000a30 cc[0]=^C cc[1]=^\ cc[2]=x7F cc[3]=^U cc[4]=^D cc[5]=^@ cc[6]=^A cc[7]=^@ cc[8]=^Q cc[9]=^S cc[10]=^Z cc[11]=^@ cc[12]=^R cc[13]=^O cc[14]=^W cc[15]=^V cc[16]=^@ cc[17]=^@ cc[18]=^@ cc[19]=^@ cc[20]=^@ cc[21]=^@ cc[22]=^@ cc[23]=^@ cc[24]=^@ cc[25]=^@ cc[26]=^@ cc[27]=^@ cc[28]=^@ cc[29]=^@ cc[30]=^@ cc[31]=^@poll: OUT,
+2022/12/12 20:02:39 socat[1557] N starting data transfer loop with FDs [5,5] and [7,7]
+> 2022/12/12 20:02:41.791814  length=2 from=0 to=1
+Ka< 2022/12/12 20:02:41.792295  length=2 from=0 to=1
+a#> 2022/12/12 20:02:44.795649  length=1 from=2 to=2
+J< 2022/12/12 20:02:44.796050  length=2 from=2 to=3
+x#> 2022/12/12 20:02:47.799119  length=1 from=3 to=3
+L< 2022/12/12 20:02:47.799605  length=2 from=4 to=5
+0#> 2022/12/12 20:02:49.803627  length=1 from=4 to=4
+w< 2022/12/12 20:02:49.804673  length=9 from=6 to=14
+"...w...#> 2022/12/12 20:02:53.806577  length=1 from=5 to=5
+h< 2022/12/12 20:02:53.806961  length=10 from=15 to=24
+..5\f\f....#> 2022/12/12 20:02:56.809675  length=1 from=6 to=6
+t< 2022/12/12 20:02:56.810104  length=2 from=25 to=26
+.#> 2022/12/12 20:02:59.813047  length=1 from=7 to=7
+e< 2022/12/12 20:02:59.813390  length=18 from=27 to=44
+34AB0500,12CE0500#> 2022/12/12 20:03:02.817274  length=1 from=8 to=8
+E< 2022/12/12 20:03:02.817587  length=10 from=45 to=54
+34AB,12CE#> 2022/12/12 20:03:06.825227  length=1 from=9 to=9
+q2022/12/12 20:03:06 socat[1557] N socat_signal(): handling signal 1
+2022/12/12 20:03:06 socat[1557] N exiting on signal 1
+2022/12/12 20:03:06 socat[1557] N socat_signal(): finishing signal 1
+2022/12/12 20:03:06 socat[1557] N exit(129)
