@@ -1,5 +1,17 @@
 # cgem-controller
 
+2024-11-30
+
+The messierObjstList.py program run OK on my Windows PC (attached to the telescope) from a command prompt window.
+I had to do a 'pip install astroquery'
+
+The version info is:
+
+python --version
+Python 3.12.7
+
+Older notes than 2024:
+
 serial.in_waiting() will get the number of bytes waiting for input
 
 2022-12-12
@@ -7,7 +19,7 @@ serial.in_waiting() will get the number of bytes waiting for input
 Installed, via pip install, sufficient packages to get testSerial.py to
 work. Here is the screen shot of the run:
 
-obsteele49@penguin:~/git/cgem-controller$ python3 testSerial.py 
+robsteele49@penguin:~/git/cgem-controller$ python3 testSerial.py 
 Enter 1 for simulation 2 for hardware 1
 Comm Working Flag :  True
 Aligment          :  True
