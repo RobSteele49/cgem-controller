@@ -10,6 +10,16 @@ The version info is:
 python --version
 Python 3.12.7
 
+Ran this same python program on a raspberry pi 4 (astroberry) and it worked
+just find. The command for running it was:
+
+python3 messierObjectList.py
+
+This was an older version of python than on my PC:
+
+python3 --version
+Python 3.7.3
+
 Older notes than 2024:
 
 serial.in_waiting() will get the number of bytes waiting for input
