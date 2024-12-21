@@ -135,8 +135,8 @@ class ObjectRaDec:
         print ('Bin number      : ' + str(self.bin()))
         print ('Name            : ' + str(self.name))
         print ('Catalog name    : ' + str(self.catName))
-        print ('RA   hr min sec : ' + str(self.ra.hr)   + ':' + str(self.ra.min)  + ':' + str(self.ra.sec))
-        print ('Dec deg min sec : ' + str(self.dec.deg) + ':' + str(self.dec.min) + ':' + str(self.ra.sec))
+        #print ('RA   hr min sec : ' + str(self.ra.hr)   + ':' + str(self.ra.min)  + ':' + str(self.ra.sec))
+        #print ('Dec deg min sec : ' + str(self.dec.deg) + ':' + str(self.dec.min) + ':' + str(self.ra.sec))
         print ('Local Hour Angle: ' + str(self.localHrAngle()))
         print ('LST  hr min sec : ' + str(self.lst.hr)  + ':' + str(self.lst.min) + ':' + str(self.lst.sec))
         print ('Altitude        : ' + str(int(self.alt.deg)))
@@ -237,6 +237,9 @@ if __name__ == '__main__':
             objectTable.append(newObject)
 
     #print 'Before sort.'
+
+    # 2024-12-20 This write function is not working. I commented out the write of the RA and Dec to get
+    # it to run without crashing. Need to look into why.
     
     objectTable[0].write()
     objectTable[len(objectTable)-1].write()
