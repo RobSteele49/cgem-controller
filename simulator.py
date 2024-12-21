@@ -1,4 +1,5 @@
 import serial
+import serial.serialposix
 import convertRaDecToCgemUnits
 import time
 
@@ -9,7 +10,8 @@ import time
 # nullmodem.sh before attempting to establish the serial interface.
 
 serialPort = './pty2'
-ser = serial.Serial(port=serialPort,timeout=1)
+serialPort = '/dev/tty'
+ser = serial.serialposix.Serial(port=serialPort,timeout=1)
 
 class Simulator:
 
@@ -120,7 +122,8 @@ class Simulator:
     #    print ('Unknown command')
 
 if __name__ == '__main__':
-  
+
+  print ('First line of main')
   done = False
   sim = Simulator()
 

@@ -18,22 +18,28 @@ class SpawnSimulator:
         if self.simulate == True:
             self.pid_modem = os.spawnlp(os.P_NOWAIT,
                                         "./nullmodem.sh", " ", " ")
+
+            print ('self.pid_modem = ')
+            print (self.pid_modem)
             
             # Check that both pty1 and pty2 files exist before continuing
             # Appears that nullmodem.sh creates the pty1 and pty2 files.
             # But I want to check with Zach to see if he remembers this
             # part of the code.
             
-            checkFileExistance = True
-            while checkFileExistance:
-                checkFileExistance1 = os.path.exists("pty1")
-                checkFileExistance2 = os.path.exists("pty2")
-                checkFileExistance  = not(checkFileExistance1 and
-                                          checkFileExistance2)
+            #checkFileExistance = True
+            #while checkFileExistance:
+            #    checkFileExistance1 = os.path.exists("pty1")
+            #    checkFileExistance2 = os.path.exists("pty2")
+            #    checkFileExistance  = not(checkFileExistance1 and
+            #                             checkFileExistance2)
 
+            # As of 2024 Dec 19 the simulator.py program is failing
+            # on the import serial line
+            
             self.pid_python = os.spawnlp(os.P_NOWAIT,
                                          "python3", " ", "simulator.py")
-
+        
             time.sleep(2)
         else:
 
@@ -53,9 +59,16 @@ class SpawnSimulator:
             os.kill(self.pid_python, signal.SIGSTOP)
         os.kill(self.pid_modem, signal.SIGSTOP);
 
+
+
 if __name__ == '__main__':
+    print ('First line of __main__')
     sp = SpawnSimulator(True)
+    print ('Finished SpawnSimulator')
     time.sleep(5)
+    print ('done with 5 second wait, will now call shutdown')
     sp.shutdown()
+
+
 
 
