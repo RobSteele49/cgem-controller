@@ -13,7 +13,7 @@ class MessierObjectList:
     
     # Initialzation logic to create the the sorted list
 
-    # As of right now I'm setting the time internally
+    # As of right now (2024-12-20) I'm setting the time internally
 
     def setLocalTime(self):
 
@@ -201,6 +201,9 @@ class MessierObjectList:
         self.sort()
         
 if __name__ == '__main__':
+
+# 2024 12 20 Got this main function to execute on PC-03, a windows 11
+# computer.
 
     messierObjects = MessierObjectList()
 
