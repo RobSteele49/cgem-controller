@@ -3,7 +3,7 @@
 # module with 'Convert'.
 
 # from raDecLst import Ra, Dec, Lst, Alt, Azi
-import serial
+# 2024-12-20 NOT USED: import serial
 
 class Error(Exception):
     """Base class for exceptions in this module."""
@@ -230,6 +230,8 @@ class ConvertAzi:
 
     def getSeconds(self):
         return (float(self.deg) * 60.0 * 60.0)
+
+# As of 2024-12-20 this code is running on a windows 11 (PC-03) machine.
 
 if __name__ == '__main__':
     
