@@ -49,7 +49,9 @@ if __name__ == '__main__':
     
     print ('inside of testSpawn.__main__')
 
-    time.sleep(10)
+    for i in range (1,11):
+        print ('inside of for loop ' + str(i))
+        time.sleep(1)
 
     print ('calling thread.stop')
     thread1.stop()
@@ -59,5 +61,5 @@ if __name__ == '__main__':
     #thread1.join()
     #thread2.join()
     
-    print ('About to exit from testSpawn.__main')
+    print ('About to exit from testSpawn.__main__')
 
