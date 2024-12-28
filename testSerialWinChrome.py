@@ -7,6 +7,10 @@
 import os
 import serial
 
+# Declare an exception if the port does not exists. Currently only
+# tested on a Chromebook that doesn't have any serial hardware connected
+# to it.
+
 class PortDoesNotExist(Exception):
     pass
 
@@ -22,12 +26,17 @@ def file_exists(file_path):
   return os.path.exists(file_path) and os.path.isfile(file_path)
 
 if __name__ == '__main__':
+
+    # 'nt' indicates a windows computer
+    
     if os.name == 'nt':
         port = 'COM6'
     else:
         port = '/dev/ttyUSB0'
 
     try:
+        # Testing files_exists(port) is working on a Chromebook but
+        # this has NOT been tested on a windows computer.
         if (file_exists(port)):
             print (f'Open the serial port, with port {port}')
             ser = serial.Serial(port, 9600)
