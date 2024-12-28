@@ -1,3 +1,5 @@
+# cgemObserveSimbadObjects.py
+
 # This program is setup to observe Messier objetcs.
 
 # I'm not using the alt/azi to determine if the object is above the horizon

@@ -1,10 +1,11 @@
+# testThreading.sp
 
 # As of 2024-12-28 this code was working on a Windows and Chromebook computers.
 # it can be used as the basis of my threading code for the CGEM interface where
 # the serial interface will run in a separate thread of control.
 
 import threading
-import subprocess
+# import subprocess
 import time
 import testSimulator
 
@@ -60,6 +61,9 @@ if __name__ == '__main__':
     print ('calling thread.stop')
     thread1.stop()
     thread2.stop()
+
+    # The join() function, which did not seem to be require for
+    # this example.
     
     #print ('calling thread.join')
     #thread1.join()

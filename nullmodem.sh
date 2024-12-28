@@ -1,4 +1,5 @@
 #!/bin/bash
+# nullmodem.sh
 
 baudrate='b9600'
 debug='-v -D -d -d'

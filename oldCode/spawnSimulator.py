@@ -7,12 +7,6 @@ import os
 import signal
 import time
 
-import subprocess
-
-# 2024-12-28 Trying to move to the new paradigm and removing the spawnlp code
-# and replacing with the subprocess.run. The code blocks until the code is completed.
-
-
 # Kicks off either the nullmodem.sh script or debugTty.sh
 # The debugTty.sh script is used for debugging hardware.
 # The nullModem.sh and simulatory.py are using when running the simulator.
@@ -26,11 +20,8 @@ class SpawnSimulator:
 
         self.simulate = simulate
         if self.simulate == True:
-
-            self.pid_modem = subprocess.run(["nullmodem.sh"], capture_output=True, text=True)
-            
-            # deprecated self.pid_modem = os.spawnlp(os.P_NOWAIT,
-            #                            "./nullmodem.sh", " ", " ")
+            self.pid_modem = os.spawnlp(os.P_NOWAIT,
+                                        "./nullmodem.sh", " ", " ")
 
             print ('self.pid_modem = ')
             print (self.pid_modem)
@@ -49,23 +40,15 @@ class SpawnSimulator:
 
             # As of 2024 Dec 19 the simulator.py program is failing
             # on the import serial line
-
-            self.pid_python = subprocess.run (["python", "simulator.py"],
-                capture_output = True,
-                text = True)
-                
-            # self.pid_python = os.spawnlp(os.P_NOWAIT,
-            #                             "python3", " ", "simulator.py")
+            
+            self.pid_python = os.spawnlp(os.P_NOWAIT,
+                                         "python3", " ", "simulator.py")
         
             time.sleep(2)
         else:
 
-            self.pid_modem = subprocess.run (["debugTty.sh"],
-                                             capture_output = True,
-                                             text = True)
-                                             
-            # self.pid_modem = os.spawnlp(os.P_NOWAIT,
-            #                                "./debugTty.sh", " ", " ")
+            self.pid_modem = os.spawnlp(os.P_NOWAIT,
+                                            "./debugTty.sh", " ", " ")
             
             # Check that both pty1 and /dev/ttyUSB0 exists before continuing
             
@@ -81,6 +64,7 @@ class SpawnSimulator:
         os.kill(self.pid_modem, signal.SIGSTOP);
 
 
+
 if __name__ == '__main__':
     print ('First line of __main__')
     sp = SpawnSimulator(True)
@@ -88,5 +72,7 @@ if __name__ == '__main__':
     time.sleep(5)
     print ('done with 5 second wait, will now call shutdown')
     sp.shutdown()
+
+
 
 
