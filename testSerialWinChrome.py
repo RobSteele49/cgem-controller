@@ -14,17 +14,26 @@ else:
 
 try:
     ser = serial.Serial(port, 9600)
+    
+    print (f"Print the current timeout and then set it for 2.0")
+    print (f"Serial timeout: {ser.timeout}")
+    ser.timeout = 2.0
     print (f"Connectd to port: {port}")
     print (f"Serial info: {ser}")
-    
+    print (f"Serial timeout: {ser.timeout}")
     # serial read/write code codes here
+    
+    input = ser.read (1)
 
+    print (f"Serial read has timed out")
+    
 except serial.SerialException as e:
     print (f"Error connecting to serial port: {e}")
 
 finally:
 
-    print (f"About to close there serial port
+    print (f"About to close there serial port")
+    
     ser.close()
 
 
