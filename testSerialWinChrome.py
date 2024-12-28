@@ -7,14 +7,12 @@
 import os
 import serial
 
-# Declare an exception if the port does not exists. Currently only
-# tested on a Chromebook that doesn't have any serial hardware connected
-# to it.
+# Declare an exception if the port does not exists.
 
 class PortDoesNotExist(Exception):
     pass
 
-def file_exists(file_path):
+def port_exists(file_path):
   """Checks if a file exists at the given path.
 
   Args:
@@ -23,7 +21,7 @@ def file_exists(file_path):
   Returns:
     True if the file exists, False otherwise.
   """
-  return os.path.exists(file_path) and os.path.isfile(file_path)
+  return os.path.exists(file_path)
 
 if __name__ == '__main__':
 
@@ -35,9 +33,7 @@ if __name__ == '__main__':
         port = '/dev/ttyUSB0'
 
     try:
-        # Testing files_exists(port) is working on a Chromebook but
-        # this has NOT been tested on a windows computer.
-        if (file_exists(port)):
+        if (port_exists(port)):
             print (f'Open the serial port, with port {port}')
             ser = serial.Serial(port, 9600)
         else:
@@ -63,9 +59,10 @@ if __name__ == '__main__':
         print ('Exception, port does not exist occurred')
         
     finally:
-        print (f"About to close the serial port")
+        print ('About to try and close the serial port')
         try:
             ser.close()
+            print ('Serial port has been closed')
         except:
             print ('Exit as ser is not defined so no need to close')
             
