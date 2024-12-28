@@ -15,7 +15,8 @@ else:
 try:
     ser = serial.Serial(port, 9600)
     print (f"Connectd to port: {port}")
-
+    print (f"Serial info: {ser}")
+    
     # serial read/write code codes here
 
 except serial.SerialException as e:
@@ -23,6 +24,7 @@ except serial.SerialException as e:
 
 finally:
 
+    print (f"About to close there serial port
     ser.close()
 
 
