@@ -1,4 +1,8 @@
 
+# As of 2024-12-28 this code was working on a Windows and Chromebook computers.
+# it can be used as the basis of my threading code for the CGEM interface where
+# the serial interface will run in a separate thread of control.
+
 import threading
 import subprocess
 import time
