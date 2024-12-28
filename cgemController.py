@@ -1,3 +1,5 @@
+#cgemController.py
+
 # Provide basic goto operations for a manually entered RA/Declination
 
 import convertRaDecToCgemUnits

@@ -1,12 +1,12 @@
+# simulator.py
+
 import serial
 import serial.serialposix
 import convertRaDecToCgemUnits
 import time
 
-# Another neat idea would be to have this script spawn the virtual
-# serial port
-# Since simulator only runs while we are simulating (duh) it could
-# runs
+# Another neat idea would be to have this script spawn the virtual serial port
+# Since simulator only runs while we are simulating (duh) it could runs
 # nullmodem.sh before attempting to establish the serial interface.
 
 serialPort = './pty2'
