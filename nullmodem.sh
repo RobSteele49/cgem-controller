@@ -6,6 +6,6 @@ baudrate='b9600'
 # socat ${debug}                        \
 socat \
 PTY,link=./pty1,${baudrate},cfmakeraw \
-PTY,link=./pty2,${baudrate},cfmakeraw 2> socatLogFile.txt
+PTY,link=./pty2,${baudrate},cfmakeraw 2> socatLogFile.txt &
 
 
