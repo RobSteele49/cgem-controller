@@ -1,8 +1,10 @@
+#!/usr/bin/python3
 # killProcess.py
 
 import subprocess
 import os
 import platform
+import sys
 
 def killProcess(process_name):
     """
@@ -49,6 +51,10 @@ def killProcess(process_name):
 # killProcess('socat')
 
 if __name__ == '__main__':
-    print ('About to call killProcess')
-    killProcess ('socat')
+    # Get the process name from command line arguments (assuming one argument)
+    if len(sys.argv) > 1:
+        process_name = sys.argv[1]
+        killProcess(process_name)
+    else:
+        print("Usage: killProcess.py <process_name>")
 
