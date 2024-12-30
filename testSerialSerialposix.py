@@ -1,3 +1,7 @@
+# testSerialSerialposix.py
+
+# 2024-12-30 This is untested, but I'm not sure that the use of
+# serialposix is necessary.
 
 import serial.serialposix
 
