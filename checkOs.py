@@ -1,6 +1,6 @@
 import platform
 
-def check_os():
+def checkOs():
     if platform.system() == 'Linux':
         print("Running on Linux")
         # Do something specific for Linux
@@ -13,7 +13,7 @@ def check_os():
 
 if __name__ == '__main__':
     
-    check_os()
+    checkOs()
 
     print ('system         : ' + platform.system())
     print ('node           : ' + platform.node())

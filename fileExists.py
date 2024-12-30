@@ -1,6 +1,6 @@
 import os
 
-def file_exists(file_path):
+def fileExists(file_path):
   """Checks if a file exists at the given path.
 
   Args:
@@ -16,5 +16,5 @@ if __name__ == '__main__':
 
     port = 'dev/ttyUSB0'
 
-    print (f'Result from file_exists: {file_exists(port)}')
+    print (f'Result from fileExists: {fileExists(port)}')
     

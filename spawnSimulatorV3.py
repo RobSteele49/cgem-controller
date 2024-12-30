@@ -5,6 +5,7 @@ import platform
 import subprocess
 import threading
 import time
+from killProcess import killProcess
 
 def runCommand (command):
     print ('first line of runCommand')
@@ -29,6 +30,7 @@ class runNullModem (threading.Thread):
         time.sleep(2)
         subprocess.run (removePty1Command, capture_output=True, text=True)
         subprocess.run (removePty2Command, capture_output=True, text=True)
+        killProcess ('socat')
         
     def run(self):
         runCommand("./nullmodem.sh")
@@ -41,7 +43,6 @@ if __name__ == '__main__':
     print ('First line of __main__')
 
     threadRunNullModem = runNullModem(target=None)
-    
     threadRunNullModem.start()
     
     print ('inside of spawnSimulatorV2.__main__')
@@ -51,7 +52,6 @@ if __name__ == '__main__':
         time.sleep(1)
 
     print ('Calling runNullModem.stop')
-
     threadRunNullModem.stop()
     
     print ('About to exit from spawnSimulatorV2.__main__')
