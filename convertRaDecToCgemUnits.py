@@ -5,6 +5,8 @@
 # from raDecLst import Ra, Dec, Lst, Alt, Azi
 # 2024-12-20 NOT USED: import serial
 
+# 2024-12-30 Worked OK, as written on a windows computer.
+
 class Error(Exception):
     """Base class for exceptions in this module."""
     pass
