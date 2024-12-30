@@ -1,3 +1,5 @@
+# testMotion.py
+
 # This program was created by copying testSerial.py.
 # I used the vesion from commit
 # 705263d1b9618d6fe2daa54f083975277939f76e

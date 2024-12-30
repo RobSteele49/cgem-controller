@@ -1,3 +1,7 @@
+# testSimulator.py
+
+# 2024-12-30 Currently just running the thread 'testSimulator' without
+# actually running the simulator.
 
 import time
 import threading

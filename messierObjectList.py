@@ -1,3 +1,6 @@
+# messierObjectList.py
+
+# 2024-12-30 Successfully tested on a chromebook.
 
 import objectRaDec
 from   raDecLst import Ra, Dec, Lst, Alt, Azi

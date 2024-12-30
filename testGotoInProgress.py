@@ -1,3 +1,5 @@
+# testGotoInProgress.py
+
 import serial
 import spawnSimulator
 import convertRaDecToCgemUnits

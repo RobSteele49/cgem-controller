@@ -1,4 +1,12 @@
-# spawnSimulatorV3.py
+# startPty1AndPty2SerialPorts.py
+
+# 2024-12-30 This code was copied (moved) from spawnSimulatorV3.py
+# Is is currently starting the socat function to kick off the two
+# serial interfaces. As of right now it just runs for a fixed amount of
+# time. The code needs to be modified to be able to stopped externally.
+
+# The main function shows how this code can be used in the context of
+# a bigger program.
 
 import os
 import platform

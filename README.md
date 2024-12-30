@@ -1,5 +1,14 @@
 # cgem-controller
 
+2024-12-30
+
+Using the cgemEnv on a Chromebook machine. To activate the environment
+the command is:
+
+source cgemEnv/bin/activate
+
+
+
 2024-11-30
 
 The messierObjstList.py program run OK on my Windows PC (attached to the telescope) from a command prompt window.

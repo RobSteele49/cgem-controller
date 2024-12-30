@@ -1,1 +1,1 @@
-./debugTty.sh: line 6: socat: command not found
+2024/12/30 20:43:06 socat[1336] E parseopts_table(): unknown option "/dev/ttyUSB0"
