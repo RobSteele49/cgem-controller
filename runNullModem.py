@@ -1,4 +1,4 @@
-# Filename: startPty1AndPty2SerialPorts.py
+# runNullModem.py
 
 # 2024-12-30 This code was copied (moved) from spawnSimulatorV3.py
 # Is is currently starting the socat function to kick off the two

@@ -1,7 +1,7 @@
-# simulator.py
+# Filename: simulator.py
 
 import serial
-import serial.serialposix
+#import serial.serialposix
 import convertRaDecToCgemUnits
 import time
 
@@ -9,9 +9,11 @@ import time
 # Since simulator only runs while we are simulating (duh) it could runs
 # nullmodem.sh before attempting to establish the serial interface.
 
-serialPort = './pty2'
-serialPort = '/dev/tty'
-ser = serial.serialposix.Serial(port=serialPort,timeout=1)
+serialPort1   = './pty1'
+serialPort2   = './pty2'
+serialPorTtty = '/dev/tty'
+#ser = serial.serialposix.Serial(port=serialPort,timeout=1)
+ser = serial.Serial(port=serialPort2, timeout=1)
 
 class Simulator:
 

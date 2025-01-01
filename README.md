@@ -1,3 +1,16 @@
+Filename: README.md
+
+2025-01-01
+
+1st execute the spawnSimulator.py program. Then, in a separate window
+execute the cgemInterface.py.
+
+The cgemController.py program is crashing. I'm not sure of the interaction
+between cgemController and cgemInterface.
+
+The code as written is sending one byte from the cgemInterface to the
+simulator.
+
 # cgem-controller
 
 2024-12-30

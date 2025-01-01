@@ -1,4 +1,4 @@
-# cgemObserveMessierObjects.py
+# file name: cgemObserveMessierObjects.py
 
 # This program is setup to observe Messier objetcs.
 
