@@ -1,3 +1,5 @@
+# Filename: convertRaDecToCgemUnits
+
 # Pretty sure that having the name Ra and Dec as classes in two different
 # modules is confusing me. For now I'm going to prefix Ra and Dec in this
 # module with 'Convert'.
@@ -129,7 +131,6 @@ class ConvertDec(CgemConverter):
         self.deg = deg
         self.min = min
         self.sec = sec
-        
     def toCgem(self):
         decNeg = False;
         

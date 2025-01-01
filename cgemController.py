@@ -11,10 +11,16 @@ import time
 # Initialize the CgemInterface with a False - this will need to be updated
 # after we get the serial simulator working.
 
+# 2025-01-01 The ra and dec, as written did not work with the current
+# definition in convertRaDecToCgemUnits
+# 
+
 cgem = cgemInterface.CgemInterface()
-ra   = convertRaDecToCgemUnits.Ra()
-dec  = convertRaDecToCgemUnits.Dec()
-    
+# ra   = convertRaDecToCgemUnits.Ra()
+# dec  = convertRaDecToCgemUnits.Dec()
+ra  = convertRaDecToCgemUnits.ConvertRa()
+dec = convertRaDecToCgemUnits.ConvertDec()
+
 print ('Enter a negative number for the RA hours wnd the loop will exit.')
 
 loopControl = True

@@ -8,6 +8,11 @@ execute the cgemInterface.py.
 The cgemController.py program is crashing. I'm not sure of the interaction
 between cgemController and cgemInterface.
 
+Started debugging cgemController.py. In the gotCommandWithHp and having
+trouble with the writeString assigment. Not sure what I should be doing
+with ra and dec right now. Need some more debugging but as the code stands
+it was transimitting bytes to the spawned simulator.
+
 The code as written is sending one byte from the cgemInterface to the
 simulator.
 
