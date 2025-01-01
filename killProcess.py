@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # killProcess.py
 
+# 2024-12-31 This code does not run correctly on a windows computer.
+# Need to look into why and how to resolve this problem.
+
 import subprocess
 import os
 import platform
