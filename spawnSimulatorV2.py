@@ -1,4 +1,9 @@
-# spawnSimulatorV2.py
+# file name: spawnSimulatorV2.py
+
+# 2025-01-01 It looks to me I wandered down the wrong path with this
+# code as the only thing, that I can now identify with the original
+# spawn program is that the original program's use of the subprocess
+# had been depricated.
 
 import os
 import platform

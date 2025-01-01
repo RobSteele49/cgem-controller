@@ -10,7 +10,7 @@ import sys
 
 # Provide the interface to the Cgem controller via the serial interface.
 # All of the commands to read & write data to and from the CGEM telesope
-# are implement here.
+# are implemented here.
 
 import convertRaDecToCgemUnits
 
@@ -29,9 +29,10 @@ class CgemInterface:
     # The initializer defaults to .pty1 which is used in the
     # simulation (nullmodel.sh) and when socat is used for debugging
     
-    # trying for real hardware 
-    # def __init__(self, port='./pty1'):
-    def __init__(self, port = 'com6'):
+    # trying for real hardware by setting __init__ to reference the
+    # com6 port.
+    def __init__(self, port='./pty1'):
+    # def __init__(self, port = 'com6'):
         
         timeoutValue = 1
         

@@ -21,7 +21,7 @@ def runCommand (command):
         result = os.system(command)
     else:
         result = os.system(f"bash -c '{command}'")
-    print (f"result : {result}")
+#    print (f"result : {result}")
 #    print (f"result.returncode : {result.returncode}")    
 
 
@@ -42,29 +42,30 @@ class runNullModem (threading.Thread):
         
     def run(self):
         runCommand("./nullmodem.sh")
+# This runs in an infinite loop, sleeping for one second until
+# the variable stopRunNullModem is triped to True in the stop method.
         while not self.stopRunNullModem:
 #           print ('inside of runNullModem.run()')
             time.sleep(1)
    
 if __name__ == '__main__':
 
-    print ('First line of __main__')
-
+    print ("First line of __main__")
+           
     threadRunNullModem = runNullModem(target=None)
     threadRunNullModem.start()
     
     print ('inside of spawnSimulatorV2.__main__')
 
-    for i in range (1,10):
+    for i in range (1,1000000):
         print ('inside of for loop ' + str(i))
-        time.sleep(1)
+        time.sleep(1000000)
 
     print ('Calling runNullModem.stop')
     threadRunNullModem.stop()
     
-    print ('About to exit from spawnSimulatorV2.__main__')
-
-
+c    print ('About to exit from spawnSimulatorV2.__main__')
+    
     
 
     

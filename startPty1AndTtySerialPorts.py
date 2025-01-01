@@ -32,7 +32,7 @@ class runDebugTtyModem (threading.Thread):
         self.stopRunDebugTtyModem = False
         
     def stop(self):
-        removePty1Command = ['rm', '-rf', './pty1']
+        removePty1Command    = ['rm', '-rf', './pty1']
         removeTtyUsb0Command = ['rm', '-rf', './tty/USB0']
         self.stopRunDebugTtyModem = True
         time.sleep(2)
