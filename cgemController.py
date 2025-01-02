@@ -13,7 +13,6 @@ import time
 
 # 2025-01-01 The ra and dec, as written did not work with the current
 # definition in convertRaDecToCgemUnits
-# 
 
 cgem = cgemInterface.CgemInterface()
 # ra   = convertRaDecToCgemUnits.Ra()
@@ -42,8 +41,10 @@ while loopControl:
         
         print ('dec.deg : ', dec.deg)
 
-        print ('Execute the goto command:')
-
+        print ('Execute the HP goto command.')
+        print (f'RA  : {ra.toCgem()}')
+        print (f'DEC : {dec.toCgem()}')
+        
         cgem.gotoCommandWithHP (ra, dec)
         #print cgem.requestHighPrecisionRaDec()
 

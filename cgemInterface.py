@@ -33,12 +33,16 @@ class CgemInterface:
     # com6 port.
     def __init__(self, port='./pty1'):
     # def __init__(self, port = 'com6'):
+
+        print ('Inside of CgemInterface.__init__')
         
         timeoutValue = 1
         
         # For zach I'm changing the serial port form
         # '/dev/ttyUSB0' which
         # was working to ./pty for the test of socat
+
+        print (f'Create a serial port with port: {port}')
         
         self.ser = serial.Serial(port     =         port, \
                                  baudrate =         9600, \
@@ -165,6 +169,8 @@ class CgemInterface:
     # Go to a RA/Dec position using the high precision mode.
     
     def gotoCommandWithHP (self, ra, dec):
+
+        print ('Inside of cgemInterface.py.gotoCommandWithHP')
         
         # I only to the conversion once and then use the variables
         # raToCgem and decToCgem in the serial write and the print
@@ -173,7 +179,9 @@ class CgemInterface:
         # will try in two steps.
         # self.ser.write ('r'+raToCgem+','+decToCgem)
 
-        writeString = b'r'+ra+b','+dec
+#       writeString = b'r'+ra.toCgem()+b','+dec.toCgem()
+        writeString = b'r'+ \
+            ra.toCgem().encode('utf-8')+b','+dec.toCgem().encode('utf-8')
         print ('writeString : ', writeString)
 
         self.ser.write (writeString)
@@ -261,6 +269,8 @@ class CgemInterface:
         return [raHex, decHex]
 
     def quitSimulator (self):
+        print ('Inside of cgemInterface.quitSimulator')
+        print ('Do a serial write of a q')
         self.ser.write(b'q')
         
     def closeSerial(self):

@@ -76,8 +76,8 @@ class Simulator:
         raHex = commandText[1:8]
         decHex = commandText[10:17]
         
-        print ('simulator raHex  : ', raHex)
-        print ('simulator decHex : ', decHex)
+        print ('simulatorV2 raHex  : ', raHex)
+        print ('simulatorV2 decHex : ', decHex)
         
         # The two variables testscopeRa and telescopeDec will be used
         # to simulate the current position of the telescope
@@ -119,7 +119,7 @@ class Simulator:
         print ('ser.write(response) failed, response : ', response)
     else:
       if prefix != b'':
-        print ('In simulator.py unhandled case, prefix: ', prefix)
+        print ('In simulatorV2.py unhandled case, prefix: ', prefix)
 
     # This else clause was resulting in too much output traffic.
     # For now I'll comment it out.
@@ -128,7 +128,7 @@ class Simulator:
 
 if __name__ == '__main__':
 
-  print ('First line of main')
+  print ('First line of main in simulatorV2.py')
   done = False
 
   print ('Create a sim object of type simulator')

@@ -1,7 +1,6 @@
 # Filename: simulator.py
 
 import serial
-#import serial.serialposix
 import convertRaDecToCgemUnits
 import time
 
@@ -11,8 +10,7 @@ import time
 
 serialPort1   = './pty1'
 serialPort2   = './pty2'
-serialPorTtty = '/dev/tty'
-#ser = serial.serialposix.Serial(port=serialPort,timeout=1)
+serialPortTty = '/dev/tty'
 ser = serial.Serial(port=serialPort2, timeout=1)
 
 class Simulator:
@@ -63,6 +61,7 @@ class Simulator:
       ser.write (response.encode('utf-8'))
     elif prefix == b'r':
       # Goto precise RA/Dec command
+      print ('in simulator.py in option prefix == byte r')
       commandText = ser.read(20)
       print ("Read command parameters: '{0}'".format(commandText))
 
@@ -100,6 +99,8 @@ class Simulator:
                                  float(self.telescopeDec[2]))).toCgem()
 
       try:
+        print ('In simulator.py option prefix == byte r')
+        print ('     do a serial write of #')
         ser.write(b'#')
       except:
         print ('r command failed')

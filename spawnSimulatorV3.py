@@ -18,6 +18,10 @@ import subprocess
 
 from killProcess import killProcess
 
+# 2025-01-02 There are two instances of simulator.py, one is simulator.py
+# and the other is simulatorV2.py. I'm not really sure what the difference
+# between these two is.
+
 def runSimulator():
     subprocess.run(["python", "simulator.py"])
 
@@ -38,6 +42,7 @@ class SpawnSimulator:
         print ('Inside of spawnSimulator.__init__')
         if self.simulate == True:
 
+            print ('execut target runNullModem')
             nullModemThread = threading.Thread(target=runNullModem)
             nullModemThread.start()
             
@@ -53,6 +58,7 @@ class SpawnSimulator:
             #    checkFileExistance  = not(checkFileExistance1 and
             #                             checkFileExistance2)
 
+            print ('execute target runSimulator')
             simulatorThread = threading.Thread(target=runSimulator)
             simulatorThread.start()
         
@@ -84,11 +90,11 @@ class SpawnSimulator:
         killProcess('runTtyModem')
 
 if __name__ == '__main__':
-    print ('First line of __main__')
+    print ('First line of __main__ spawnSimulatorV3.py')
     sp = SpawnSimulator(True)
     print ('Finished SpawnSimulator')
-    time.sleep(300)
-    print ('done with 30 second wait, will now call shutdown')
+    time.sleep(3600)
+    print ('done with 3600 second wait, will now call shutdown')
     sp.shutdown()
 
 

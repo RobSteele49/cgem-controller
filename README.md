@@ -1,8 +1,24 @@
 Filename: README.md
 
+2025-01-02
+
+In a terminal window run 'python spawnSimulatorV3.py'.
+In a seperate terminal window run 'python cgemController.py'
+
+As of the current implementation, spawnSimulator runs for one
+hour. Need to build some code to exit cleanly based on exterminal
+inputs from cGemController.py.
+
+This is causing simulator.py to run - there is also a simulatorV2.py
+that I need to look at the differences between simulator.py and
+simulatorV2
+
+Note that cgemObserveMessierObjects and cgemObserveSimbadObjects
+are both failing on the simulate option. Need to look it why.
+
 2025-01-01
 
-1st execute the spawnSimulator.py program. Then, in a separate window
+1st execute the spawnSimulatorV3.py program. Then, in a separate window
 execute the cgemInterface.py.
 
 The cgemController.py program is crashing. I'm not sure of the interaction
