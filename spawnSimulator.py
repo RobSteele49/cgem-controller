@@ -3,12 +3,6 @@
 # 2025-01-03 Did a git move from spawnSimulatorV2.py to
 # spawnSimulator.py
 
-# As of 2024 12, the spawnlp task has been depricated and this code does
-# not work.
-
-# 2025-01-01 Starting to work. Will remove some of the old unused code
-# before committing. See need to kill the files.
-
 import os
 import signal
 import time
@@ -100,7 +94,7 @@ class SpawnSimulator:
 # run from the command line ('python spawnSimulator.py').
 
 if __name__ == '__main__':
-    print ('First line of __main__ spawnSimulatorV3.py')
+    print ('First line of __main__ spawnSimulator.py')
     sp = SpawnSimulator(True)
     print ('Finished SpawnSimulator')
     time.sleep(3600)

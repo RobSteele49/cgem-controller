@@ -180,6 +180,11 @@ class CgemInterface:
         # self.ser.write ('r'+raToCgem+','+decToCgem)
 
 #       writeString = b'r'+ra.toCgem()+b','+dec.toCgem()
+
+        print ('2025-01-03 The following line is crashing.')
+        print (f'2025-01-03 ra.toCgem()  : {ra.toCgem() }')
+        print (f'2025-01-03 dec.toCgem() : {dec.toCgem()}')
+        
         writeString = b'r'+ \
             ra.toCgem().encode('utf-8')+b','+dec.toCgem().encode('utf-8')
         print ('writeString : ', writeString)

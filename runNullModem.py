@@ -1,4 +1,4 @@
-# runNullModem.py
+# Filename: runNullModem.py
 
 # 2024-12-30 This code was copied (moved) from spawnSimulatorV3.py
 # Is is currently starting the socat function to kick off the two
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     threadRunNullModem = runNullModem(target=None)
     threadRunNullModem.start()
     
-    print ('inside of spawnSimulatorV2.__main__')
+    print ('inside of spawnSimulator.__main__')
 
     for i in range (1,1000000):
         print ('inside of for loop ' + str(i))
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     print ('Calling runNullModem.stop')
     threadRunNullModem.stop()
     
-    print ('About to exit from spawnSimulatorV2.__main__')
+    print ('About to exit from spawnSimulator.__main__')
     
     
 

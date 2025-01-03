@@ -26,6 +26,9 @@ if __name__ == '__main__':
     # ports for a simulator or for debugging and talking to the
     # telescope. The name is deceiving - but it required.
 
+    print (f'simulate: {simulate}')
+    print ('About to invoke spawnSimulator.SpanwSimulator(simulate)')
+    
     sp = spawnSimulator.SpawnSimulator(simulate)
     
     # The initializer for cgemInterface will open the serial port.
@@ -103,6 +106,7 @@ if __name__ == '__main__':
                             
                             print ('Invoking gotoCommandWithHP')
                             cgem.gotoCommandWithHP (newRaHex, newDecHex)
+                            print ('2025-01-03 Not making it to this line of code.')
 
                             telescopeRaDecCgem = cgem.requestHighPrecisionRaDec()
                             print ('telescopeRaDecCgem:', telescopeRaDecCgem)
