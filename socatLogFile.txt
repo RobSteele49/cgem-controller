@@ -1,0 +1,1 @@
+./nullmodem.sh: line 8: socat: command not found

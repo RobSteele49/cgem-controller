@@ -1,4 +1,4 @@
-# cgemObserveSimbadObjects.py
+# Filename: cgemObserveSimbadObjects.py
 
 # This program is setup to observe Messier objetcs.
 

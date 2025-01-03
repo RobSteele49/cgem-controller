@@ -1,5 +1,7 @@
 # Filename: simulator.py
 
+# 2024-01-03 Currently being kicked off from spawnSimulatorV3.py.
+
 import serial
 import convertRaDecToCgemUnits
 import time
