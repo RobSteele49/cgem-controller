@@ -1,5 +1,20 @@
 Filename: README.md
 
+2025-01-03
+
+Used git mv to move the old versions of spawnSimulator*.py to the oldCode
+directory. Then did a git mv of spawnSimulatorV3 to spawnSimulator.
+Hopefully this will start ot help clean up the directory of unused files.
+
+For attempting to debug cgemObserveMessierObjects.py first, in one
+1st terminal window:
+    python runNullModem.py
+2nd terminal window
+    python cgemObserveMessierObjects.py
+    Selected option 1 for simulation mode
+
+    Creashing on the 1st attempt at a HP command.
+    
 2025-01-02
 
 In a terminal window run 'python spawnSimulatorV3.py'.

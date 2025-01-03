@@ -15,8 +15,6 @@ import time
 # definition in convertRaDecToCgemUnits
 
 cgem = cgemInterface.CgemInterface()
-# ra   = convertRaDecToCgemUnits.Ra()
-# dec  = convertRaDecToCgemUnits.Dec()
 ra  = convertRaDecToCgemUnits.ConvertRa()
 dec = convertRaDecToCgemUnits.ConvertDec()
 
