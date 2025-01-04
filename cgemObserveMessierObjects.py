@@ -15,6 +15,9 @@ import messierObjectList
 if __name__ == '__main__':
 
     # Request input as to if simulation or using telescope hardware
+    # 2025-01-04 Not sure what the simulate flag is doing since
+    # I removed spawnSimulator and moved that to be activated in
+    # a separate terminal.
     
     if input("Enter 1 for simulation 2 for hardware ") == '1':
         simulate = True

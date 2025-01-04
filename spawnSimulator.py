@@ -19,6 +19,12 @@ from killProcess import killProcess
 # and the other is simulatorV2.py. I'm not really sure what the difference
 # between these two is.
 
+# 2025-01-04 Looking to put in logic for terminating the simulator.
+# The way I've got the code configured right now the simulator.py
+# is activated as a separate thread of control as a python program.
+# What I need is either a signal from that program to this one, or
+# to run the program as a separate thread in this program.
+
 def runSimulator():
     subprocess.run(["python", "simulator.py"])
 
@@ -93,11 +99,14 @@ class SpawnSimulator:
 # Just as a reminder, this code will ONLY execute when the file is
 # run from the command line ('python spawnSimulator.py').
 
+# 2025-01-04 Starting to add in a quit function. The first step was to add
+# a case for the 'q' command that the Simulator would process.
+
 if __name__ == '__main__':
     print ('First line of __main__ spawnSimulator.py')
     print ('Spawn simulator with a True argument.')
     sp = SpawnSimulator(True)
-    print ('Finished SpawnSimulator')
+    print ('Finished activating SpawnSimulator')
     time.sleep(3600*12)
     print ('done with 12 hour wait, will now call shutdown')
     sp.shutdown()

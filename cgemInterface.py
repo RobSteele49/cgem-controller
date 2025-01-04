@@ -172,19 +172,6 @@ class CgemInterface:
 
         print ('Inside of cgemInterface.py.gotoCommandWithHP')
         
-        # I only to the conversion once and then use the variables
-        # raToCgem and decToCgem in the serial write and the print
-
-        # Having errors getting this to write to the telescope,
-        # will try in two steps.
-        # self.ser.write ('r'+raToCgem+','+decToCgem)
-
-#       writeString = b'r'+ra.toCgem()+b','+dec.toCgem()
-
-        print ('2025-01-03 The following line is crashing.')
-        print (f'2025-01-03 ra.toCgem()  : {ra.toCgem() }')
-        print (f'2025-01-03 dec.toCgem() : {dec.toCgem()}')
-        
         writeString = b'r'+ \
             ra.toCgem().encode('utf-8')+b','+dec.toCgem().encode('utf-8')
         print ('writeString : ', writeString)
@@ -193,11 +180,6 @@ class CgemInterface:
 
         data = self.serialRead(3,1)
         print ('Read after gotoCommand:',data)
-
-#        if data == b'#':
-#            print ('Valid response, a #')
-#        else:
-#            print ('Invalid response not a #')
             
         gotoInProgressFlag   = True
 
@@ -237,9 +219,9 @@ class CgemInterface:
         result = self.serialRead(3,1)
         return result
 
-    # The function requestionHighPrecisionRaDec should actually
-    # be retruning the RA and Dec and have this additional logic
-    # embedded in the function.
+    # 2025-01-04 The function requestionHighPrecisionRaDec should
+    # actually be retruning the RA and Dec and have this additional
+    # logic embedded in the function.
         
     def requestHighPrecisionRaDec (self):
         print ('In requestHighPrecisionRaDec')

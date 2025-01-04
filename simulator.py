@@ -15,11 +15,15 @@ serialPort2   = './pty2'
 serialPortTty = '/dev/tty'
 ser = serial.Serial(port=serialPort2, timeout=1)
 
+quit = False
+
 class Simulator:
 
   def __init__ (self):
+    print ('Simulator.__init__ function')
     self.raConversion  = convertRaDecToCgemUnits.ConvertRa()
     self.decConversion = convertRaDecToCgemUnits.ConvertDec()
+    quit = False
 
   def parse_command(self, prefix):
     if prefix == b'e':
@@ -59,6 +63,11 @@ class Simulator:
       ser.write (response)
     elif prefix == b'L':
       # Goto in progress command
+      response = '0#'
+      ser.write (response.encode('utf-8'))
+    elif prefix == b'q':
+      # 2025-01-04 Quit command - at least the start of it.
+      quit = True
       response = '0#'
       ser.write (response.encode('utf-8'))
     elif prefix == b'r':
