@@ -8,6 +8,7 @@
 # Version working on the telescope
 # commit e51ecdc9a67699133f19de118f314c9fc5237605
 
+import spawnSimulator
 import convertRaDecToCgemUnits
 import cgemInterface
 import messierObjectList
@@ -20,7 +21,16 @@ if __name__ == '__main__':
         simulate = True
     else:
         simulate = False
+    
+    # This will either spawn a shell program for setting up the
+    # ports for a simulator or for debugging and talking to the
+    # telescope. The name is deceiving - but it required.
 
+    print (f'simulate: {simulate}')
+    print ('About to invoke spawnSimulator.SpanwSimulator(simulate)')
+    
+    sp = spawnSimulator.SpawnSimulator(simulate)
+    
     # The initializer for cgemInterface will open the serial port.
     # The default is ./pty1 which works with either the simulator
     # using nullmodem.sh or when using socat. If talking directly
@@ -39,8 +49,6 @@ if __name__ == '__main__':
     # As of 10/21/18 I was adding the altitude and azimuth of each
     # object in the list.
 
-    print ('Create messier list')
-    
     messierList = messierObjectList.MessierObjectList()
 
     print ('Loop over all messier objects.')
@@ -83,27 +91,30 @@ if __name__ == '__main__':
 
                             newRa = convertRaDecToCgemUnits.ConvertRa(float(objectRa.hr),
                                                                       float(objectRa.min),
-                                                                      float(objectRa.sec))
+                                                                      float(objectRa.sec)).toCgem()
         
                     
                             newDec = convertRaDecToCgemUnits.ConvertDec(float(objectDec.deg),
                                                                         float(objectDec.min),
-                                                                        float(objectDec.sec))
+                                                                        float(objectDec.sec)).toCgem()
 
+                            newRaHex  = newRa.encode('utf-8')
+                            newDecHex = newDec.encode('utf-8')
+
+                            print ('newRaHex  : ', newRaHex)
+                            print ('newDecHex : ', newDecHex)
                             
                             print ('Invoking gotoCommandWithHP')
-                            cgem.gotoCommandWithHP (newRa, newDec)
+                            cgem.gotoCommandWithHP (newRaHex, newDecHex)
+                            print ('2025-01-03 Not making it to this line of code.')
 
                             telescopeRaDecCgem = cgem.requestHighPrecisionRaDec()
-                            (raFromCgem, decFromCgem) = cgem.requestHighPrecisionRaDec()
-                            
                             print ('telescopeRaDecCgem:', telescopeRaDecCgem)
-                            
-                            # args = telescopeRaDecCgem.split(',',2)
-                            # raFromCgem = convertRa.fromCgem(args[0])
-                            # decFromCgem = convertDec.fromCgem(args[1])
-                            # print ('RA  : ', raFromCgem)
-                            # print ('Dec : ', decFromCgem)
+#                            args = telescopeRaDecCgem.split(',',2)
+#                            raFromCgem = convertRa.fromCgem(args[0])
+#                            decFromCgem = convertDec.fromCgem(args[1])
+#                            print ('RA  : ', raFromCgem)
+#                            print ('Dec : ', decFromCgem)
                             print ('---------------------- DONE ------------------')
                             print ()
                         elif x == 3:
@@ -132,8 +143,7 @@ if __name__ == '__main__':
     
     cgem.quitSimulator() # does nothing when operating with telescope
     cgem.closeSerial()
-
-
+    sp.shutdown()
 
 
     

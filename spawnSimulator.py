@@ -95,10 +95,11 @@ class SpawnSimulator:
 
 if __name__ == '__main__':
     print ('First line of __main__ spawnSimulator.py')
+    print ('Spawn simulator with a True argument.')
     sp = SpawnSimulator(True)
     print ('Finished SpawnSimulator')
-    time.sleep(3600)
-    print ('done with 3600 second wait, will now call shutdown')
+    time.sleep(3600*12)
+    print ('done with 12 hour wait, will now call shutdown')
     sp.shutdown()
 
 
