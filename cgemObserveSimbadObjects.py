@@ -8,7 +8,6 @@
 # Version working on the telescope
 # commit e51ecdc9a67699133f19de118f314c9fc5237605
 
-import spawnSimulator
 import convertRaDecToCgemUnits
 import cgemInterface
 import simbadObjectLists
@@ -21,12 +20,6 @@ if __name__ == '__main__':
         simulate = True
     else:
         simulate = False
-    
-    # This will either spawn a shell program for setting up the
-    # ports for a simulator or for debugging and talking to the
-    # telescope. The name is deceiving - but it required.
-
-    sp = spawnSimulator.SpawnSimulator(simulate)
     
     # The initializer for cgemInterface will open the serial port.
     # The default is ./pty1 which works with either the simulator
@@ -93,21 +86,16 @@ if __name__ == '__main__':
                             newRa = convertRaDecToCgemUnits.ConvertRa \
                                 (float(objectRa.hr),                  \
                                  float(objectRa.min),                 \
-                                 float(objectRa.sec)).toCgem()
+                                 float(objectRa.sec))
         
                     
                             newDec = convertRaDecToCgemUnits.ConvertDec \
                                 (float(objectDec.deg), \
                                  float(objectDec.min), \
-                                 float(objectDec.sec)).toCgem()
+                                 float(objectDec.sec))
 
-                            newRaHex  = newRa.encode('utf-8')
-                            newDecHex = newDec.encode('utf-8')
-
-                            print ('newRaHex  : ', newRaHex)
-                            print ('newDecHex : ', newDecHex)
-                            
-                            cgem.gotoCommandWithHP (newRaHex, newDecHex)
+                            print ('Invoking goComandWithHP')
+                            cgem.gotoCommandWithHP (newRa, newDec)
 
                             telescopeRaDecCgem = \
                                 cgem.requestHighPrecisionRaDec()
@@ -142,7 +130,7 @@ if __name__ == '__main__':
     
     cgem.quitSimulator() # does nothing when operating with telescope
     cgem.closeSerial()
-    sp.shutdown()
+    
 
 
     

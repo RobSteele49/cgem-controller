@@ -7,7 +7,8 @@
 # from raDecLst import Ra, Dec, Lst, Alt, Azi
 # 2024-12-20 NOT USED: import serial
 
-# 2024-12-30 Worked OK, as written on a windows computer.
+# 2024-12-30 Worked OK on a windows computer.
+# 2025-01-04 Worked OK on a Chromebook computer.
 
 class Error(Exception):
     """Base class for exceptions in this module."""
@@ -32,7 +33,8 @@ class DecError(Error):
     
 class CgemConverter(object):
 
-# This is setting up constants for the conversion process:
+# This is setting up constants for the conversion process to the
+# units used on my CGEM telescope.
 
     softwareResolution = 2**24;
     fullCircleDeg      = 360
@@ -46,8 +48,6 @@ class CgemConverter(object):
 # was supposed to do.
 
     def __init__(self, args={}):
-        #for k,v in args.iteritems():
-        #    setattr(self, k, v)
         self.toCgem()
         self.fromCgem(cgemUnits = '0')
 
@@ -68,6 +68,10 @@ class ConvertRa(CgemConverter):
         self.hr  = hr
         self.min = min
         self.sec = sec
+
+    # 2025-01-04 This returns the hex value, which is in CGEM units.
+    # This returned value can be used as the input to the fromCgem
+    # function.
     
     def toCgem(self):
         self.raInSeconds = (float(self.hr) * 3600 + float(self.min)  * 60.0 + float(self.sec)) * 15.0
@@ -93,6 +97,15 @@ class ConvertRa(CgemConverter):
 
         return str.upper(strGotoValue)
 
+    # 2025-01-04 This functions returns the hr,min,sec of the RA from
+    # the CGEM units. The CGEM units are returned from the function
+    # toCgem.
+
+
+    # 2025-01-04 No idea why I using xhr, xmin, xsec in the function.
+    # I'm assuming there was some kind of name collision I was trying
+    # to avoid.
+    
     def fromCgem(self, cgemUnits):
         x = (int(cgemUnits,16)) >> 8
         seconds = x / 15.0 / 12.0 / CgemConverter.conversionFactor
@@ -131,6 +144,11 @@ class ConvertDec(CgemConverter):
         self.deg = deg
         self.min = min
         self.sec = sec
+
+    # 2025-01-04 This returns the hex value, which is in CGEM units.
+    # This returned value can be used as the input to the fromCgem
+    # function.
+    
     def toCgem(self):
         decNeg = False;
         
@@ -165,6 +183,14 @@ class ConvertDec(CgemConverter):
 
         return str.upper(strGotoValue)
 
+    # 2025-01-04 This functions returns the deg,min,sec of the Dec. from
+    # the CGEM units. The CGEM units are returned from the function
+    # toCgem.
+
+    # 2025-01-04 No idea why I using xdeg, xmin, xsec in the function.
+    # I'm assuming there was some kind of name collision I was trying
+    # to avoid.
+    
     def fromCgem (self, cgemUnits):
         x = int(cgemUnits,16) >> 8
         

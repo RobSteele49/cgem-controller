@@ -1,3 +1,4 @@
+# Filename: simbadObjectLists.py
 
 import objectRaDec
 from   raDecLst import Ra, Dec, Lst, Alt, Azi

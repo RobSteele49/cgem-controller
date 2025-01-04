@@ -1,10 +1,8 @@
+# Filename: objectRaDec.py
+
 # The class ObjectRaDec, which is not a very description name is
 # intended to provide sorting of a list of objects for the 'best'
 # observing order.
-
-# Not sure where this from came from - uness LiClipse added it.
-
-# from pyraf.iraffunctions import substr
 
 # As of 9/25/18 I have the LST embedded in the ObjectRaDec object.
 # It may make more sense to place in the list -
