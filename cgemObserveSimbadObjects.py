@@ -36,7 +36,7 @@ if __name__ == '__main__':
     # for the Messier Objects. It returns a sorted list of those objects
     # ready for observing.
     
-    # As of 10/21/18 I was adding the altitude and azimuth of each
+git    # As of 10/21/18 I was adding the altitude and azimuth of each
     # object in the list.
 
     simbadLists = simbadObjectLists.SimbadObjectLists (
