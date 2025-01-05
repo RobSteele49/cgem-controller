@@ -39,7 +39,14 @@ if __name__ == '__main__':
     # As of 10/21/18 I was adding the altitude and azimuth of each
     # object in the list.
 
-    simbadLists = simbadObjectLists.SimbadObjectLists()
+    simbadLists = simbadObjectLists.SimbadObjectLists (
+        mgcMinMag          = 10.0,
+        icMinMag           =  9.0,
+        ngcMinMag          =  6.0,
+        allMinMag          =  6.0,
+        galaxiesMinMag     =  9.0,
+        openClustersMinMag =  6.5)
+    
     print ('Number of objects in simbadLists : ', len(simbadLists.objectTable))
     print
     print ('Loop over all visible objects.')

@@ -125,7 +125,13 @@ class SimbadObjectLists:
 
                         self.objectTable.append(newObject)
     
-    def __init__(self):
+    def __init__(self,
+                 mgcMinMag          = 10.0,
+                 icMinMag           =  9.0,
+                 ngcMinMag          =  6.0,
+                 allMinMag          =  6.0,
+                 galaxiesMinMag     =  9.0,
+                 openClustersMinMag =  6.5):
         self.setLocalTime()
         
         # Grab the Simbad data base
@@ -145,6 +151,8 @@ class SimbadObjectLists:
         # All of the table* statements below worked without any
         # errors when I was running Python3 in a terminal mode.
 
+        # 2025-01-05 Maximum of 120 rows for the Messier query
+        
         Simbad.ROW_LIMIT = 120
         try:
             time.sleep(2)
@@ -154,12 +162,14 @@ class SimbadObjectLists:
         except:
             tableMessierOk = False
             print ('tableMessier failed.')
+
+        # 2025-01-05 Maximum of 200 for for the MGC query
         
-        Simbad.ROW_LIMIT = 100
+        Simbad.ROW_LIMIT = 200
         try:
             time.sleep(2)
-            tableMgc     = Simbad.query_criteria('Vmag<10.5', \
-                                                 cat='MGC')
+            # print (f'Min mag for MGNC: {mgcMinMag}')
+            tableMgc     = Simbad.query_criteria(f'Vmag<{mgcMinMag}', cat='MGC')
             tableMgcOk   = True
             print ('Length of MGC table     : ', len(tableMgc))
         except:
@@ -167,23 +177,27 @@ class SimbadObjectLists:
             print ('tableMcg failed')
 
 
+        # 2025-01-05 Maximum of 200 rows for the IC queury
+        
         Simbad.ROW_LIMIT = 200
         try:
             time.sleep(2)
-            tableIc     = Simbad.query_criteria('Vmag<9.0', \
-                                                 cat='ic')
+            tableIc     = Simbad.query_criteria(f'Vmag<{icMinMag}', cat='ic')
             tableIcOk   = True
             print ('Length of IC table      : ', len(tableIc))
         except:
             tableIcOk   = False
             print ('tableIC failed')
-            
+
+        # 2025-01-05 Not sure why I'm doing the queuy of NGC catalog data twice. Especially
+        # since the table variable 'tableNgc' is overywritten in the 2nd queuy. On the 2nd
+        # query the row limit is cut in half.
+        
         Simbad.ROW_LIMIT = 200
         try:
             # With a row limit of 5000 things crash with the NGC catalog
             time.sleep(2)
-            tableNgc         = Simbad.query_criteria('Vmag<6.0', \
-                                                     cat='NGC')
+            tableNgc         = Simbad.query_criteria(f'Vmag<{ngcMinMag}', cat='NGC')
             tableNgcOk = True
             print ('Length of NGC table     : ', len(tableNgc))
         except:
@@ -195,18 +209,20 @@ class SimbadObjectLists:
             try:
                 # With a row limit of 5000 things crash with the NGC catalog
                 time.sleep(2)
-                tableNgc         = Simbad.query_criteria('Vmag<5.0', \
-                                                         cat='NGC')
+                tableNgc         = Simbad.query_criteria(f'Vmag<{ngcMinMag}', cat='NGC')
                 tableNgcOk = True
                 print ('Length of NGC table : ', len(tableNgc))
             except:
                 tableNgcOk = False
                 print ('Second attempt to access NGC table failed.')
-                
+
+        # 2-25-01-05 On this queury, for what is now has a row limit of 100 all of the simbad
+        # data is queried.
+
         Simbad.ROW_LIMIT = 100
         try:
             time.sleep(2)
-            tableAll = Simbad.query_criteria('Vmag<6.0')
+            tableAll = Simbad.query_criteria(f'Vmag<{allMinMag}')
             tableAllOk = True
             print ('Length of All table     : ', len(tableAll))
         except:
@@ -220,7 +236,7 @@ class SimbadObjectLists:
             Simbad.ROW_LIMIT /= 2
             try:
                 time.sleep(2)
-                tableAll = Simbad.query_criteria('Vmag<5.0')
+                tableAll = Simbad.query_criteria(f'Vmag<{allMinMag}')
                 tableAllOk = True
                 print ('Length of All table     : ', len(tableAll))
             except:
@@ -244,13 +260,14 @@ class SimbadObjectLists:
         try:
             # With a limit of 10000 returned 5212 elements
             time.sleep(2)
-            tableG   = Simbad.query_criteria('Vmag<9.0', otype='G')
+            tableG   = Simbad.query_criteria(f'Vmag<{galaxiesMinMag}', otype='G')
             tableGOk = True
             print ('Length of table G       : ', len(tableG))
         except:
             tableGOk = False
             print ('tableG is failing')
 
+        # print ('Looking for globular clusters')
         # Looking for Globular Clusters
         Simbad.ROW_LIMIT = 100
         try:
@@ -262,11 +279,13 @@ class SimbadObjectLists:
             tableGlbOk = False
             print ('tableGlb is failing')
 
+        # print ('Looking for open clusters')
+        
         # Looking for Open Cluster
         Simbad.ROW_LIMIT = 100
         try:
             time.sleep(2)
-            tableOpc   = Simbad.query_criteria('Vmag<6.5', otype='opc')
+            tableOpc   = Simbad.query_criteria(f'Vmag<{openClustersMinMag}', otype='opc')
             tableOpcOk = True
             print ('Length of table Opc     : ', len(tableOpc))
         except:
