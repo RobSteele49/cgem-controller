@@ -26,21 +26,23 @@ convertDec = convertRaDecToCgemUnits.ConvertDec()
 
 class CgemInterface:
 
-    # The initializer defaults to .pty1 which is used in the
-    # simulation (nullmodel.sh) and when socat is used for debugging
-    
-    # trying for real hardware by setting __init__ to reference the
-    # com6 port.
-    def __init__(self, port='./pty1'):
-    # def __init__(self, port = 'com6'):
+    # 2025-01-07 Changing the __init__ for this class to use a
+    # simulate flag. When true the port will be set to ./pty1
+    # and when false it will attempt to use the hardware port
+    # of com6.
 
-        print ('Inside of CgemInterface.__init__')
+    def __init__(self, simulate=True):
         
+        print (f'Inside of CgemInterface.__init__ simulate: {simulate}')
+
+        if simulate == True:
+            port = './pty1'
+        else:
+            port = 'com6'
+
+        print (f'port for Cgem commands is {port}')
+
         timeoutValue = 1
-        
-        # For zach I'm changing the serial port form
-        # '/dev/ttyUSB0' which
-        # was working to ./pty for the test of socat
 
         print (f'Create a serial port with port: {port}')
         
@@ -266,7 +268,7 @@ class CgemInterface:
 
 if __name__ == '__main__':
     
-    cgemInterface = CgemInterface()
+    cgemInterface = CgemInterface(simulate=True)
     
     #ra  = convertRaDecToCgemUnits.Ra()
     #dec = convertRaDecToCgemUnits.Dec()

@@ -115,7 +115,7 @@ class SimbadObjectLists:
                                                             catalogName,
                                                             self.tableRa,
                                                             self.tableDec,
-                                                            Ra  (self.ra_hr, self.ra_min, self.ra_sec),
+                                                            Ra  (self.ra_hr,   self.ra_min,  self.ra_sec),
                                                             Dec (self.dec_deg, self.dec_min, self.dec_sec),
                                                             Lst (self.lst_hr,
                                                                  self.lst_min,
@@ -244,7 +244,7 @@ class SimbadObjectLists:
                 print ('Second attempt to access all catalogs failed.')
 
         # Looking for Planetary Nebulas
-        Simbad.ROW_LIMIT = 100
+        Simbad.ROW_LIMIT = 200
         try:
             # With a limit of 10000 returned 5212 elements
             # time.sleep(2)
@@ -269,7 +269,7 @@ class SimbadObjectLists:
 
         # print ('Looking for globular clusters')
         # Looking for Globular Clusters
-        Simbad.ROW_LIMIT = 100
+        Simbad.ROW_LIMIT = 200
         try:
             # time.sleep(2)
             tableGlb   = Simbad.query_criteria(otype='glb')

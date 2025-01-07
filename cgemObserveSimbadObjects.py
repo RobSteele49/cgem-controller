@@ -27,7 +27,7 @@ if __name__ == '__main__':
     # to real hardware will want to set port = '/dev/ttyUSB0'
     # or something simular.
 
-    cgem       = cgemInterface.CgemInterface()
+    cgem       = cgemInterface.CgemInterface(simulate)
 
     convertRa  = convertRaDecToCgemUnits.ConvertRa()
     convertDec = convertRaDecToCgemUnits.ConvertDec()
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         ngcMinMag          =  6.0,
         allMinMag          =  6.0,
         galaxiesMinMag     =  9.0,
-        openClustersMinMag =  6.5)
+        openClustersMinMag =  7.0)
     
     print ('Number of objects in simbadLists : ', len(simbadLists.objectTable))
     print

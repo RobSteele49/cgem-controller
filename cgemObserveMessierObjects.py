@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # to real hardware will want to set port = '/dev/ttyUSB0'
     # or something simular.
 
-    cgem       = cgemInterface.CgemInterface()
+    cgem       = cgemInterface.CgemInterface(simulate)
 
     convertRa  = convertRaDecToCgemUnits.ConvertRa()
     convertDec = convertRaDecToCgemUnits.ConvertDec()
