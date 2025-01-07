@@ -155,7 +155,7 @@ class SimbadObjectLists:
         
         Simbad.ROW_LIMIT = 120
         try:
-            time.sleep(2)
+            # time.sleep(2)
             tableMessier   = Simbad.query_criteria(cat='M')
             tableMessierOk = True
             print ('Length of Messier table : ', len(tableMessier))
@@ -167,7 +167,7 @@ class SimbadObjectLists:
         
         Simbad.ROW_LIMIT = 200
         try:
-            time.sleep(2)
+            # time.sleep(2)
             # print (f'Min mag for MGNC: {mgcMinMag}')
             tableMgc     = Simbad.query_criteria(f'Vmag<{mgcMinMag}', cat='MGC')
             tableMgcOk   = True
@@ -181,7 +181,7 @@ class SimbadObjectLists:
         
         Simbad.ROW_LIMIT = 200
         try:
-            time.sleep(2)
+            # time.sleep(2)
             tableIc     = Simbad.query_criteria(f'Vmag<{icMinMag}', cat='ic')
             tableIcOk   = True
             print ('Length of IC table      : ', len(tableIc))
@@ -196,7 +196,7 @@ class SimbadObjectLists:
         Simbad.ROW_LIMIT = 200
         try:
             # With a row limit of 5000 things crash with the NGC catalog
-            time.sleep(2)
+            # time.sleep(2)
             tableNgc         = Simbad.query_criteria(f'Vmag<{ngcMinMag}', cat='NGC')
             tableNgcOk = True
             print ('Length of NGC table     : ', len(tableNgc))
@@ -208,7 +208,7 @@ class SimbadObjectLists:
             Simbad.ROW_LIMIT /= 2
             try:
                 # With a row limit of 5000 things crash with the NGC catalog
-                time.sleep(2)
+                # time.sleep(2)
                 tableNgc         = Simbad.query_criteria(f'Vmag<{ngcMinMag}', cat='NGC')
                 tableNgcOk = True
                 print ('Length of NGC table : ', len(tableNgc))
@@ -221,7 +221,7 @@ class SimbadObjectLists:
 
         Simbad.ROW_LIMIT = 100
         try:
-            time.sleep(2)
+            # time.sleep(2)
             tableAll = Simbad.query_criteria(f'Vmag<{allMinMag}')
             tableAllOk = True
             print ('Length of All table     : ', len(tableAll))
@@ -235,7 +235,7 @@ class SimbadObjectLists:
         if tableAllOk == False:
             Simbad.ROW_LIMIT /= 2
             try:
-                time.sleep(2)
+                # time.sleep(2)
                 tableAll = Simbad.query_criteria(f'Vmag<{allMinMag}')
                 tableAllOk = True
                 print ('Length of All table     : ', len(tableAll))
@@ -247,7 +247,7 @@ class SimbadObjectLists:
         Simbad.ROW_LIMIT = 100
         try:
             # With a limit of 10000 returned 5212 elements
-            time.sleep(2)
+            # time.sleep(2)
             tablePl   = Simbad.query_criteria(otype='PL')
             tablePlOk = True
             print ('Length of table PL      : ', len(tablePl))
@@ -259,7 +259,7 @@ class SimbadObjectLists:
         Simbad.ROW_LIMIT = 100
         try:
             # With a limit of 10000 returned 5212 elements
-            time.sleep(2)
+            # time.sleep(2)
             tableG   = Simbad.query_criteria(f'Vmag<{galaxiesMinMag}', otype='G')
             tableGOk = True
             print ('Length of table G       : ', len(tableG))
@@ -271,7 +271,7 @@ class SimbadObjectLists:
         # Looking for Globular Clusters
         Simbad.ROW_LIMIT = 100
         try:
-            time.sleep(2)
+            # time.sleep(2)
             tableGlb   = Simbad.query_criteria(otype='glb')
             tableGlbOk = True
             print ('Length of table Glb     : ', len(tableGlb))
@@ -284,7 +284,7 @@ class SimbadObjectLists:
         # Looking for Open Cluster
         Simbad.ROW_LIMIT = 100
         try:
-            time.sleep(2)
+            # time.sleep(2)
             tableOpc   = Simbad.query_criteria(f'Vmag<{openClustersMinMag}', otype='opc')
             tableOpcOk = True
             print ('Length of table Opc     : ', len(tableOpc))
@@ -310,7 +310,7 @@ class SimbadObjectLists:
         if tableMessierOk:
             table = tableMessier
         else:
-            time.sleep(2)
+            # time.sleep(2)
             table = Simbad.query_object ('M *', wildcard=True, verbose=False)
             
         # This loop goes through the table of messier objects obtained from

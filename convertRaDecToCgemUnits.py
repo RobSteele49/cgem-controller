@@ -60,7 +60,10 @@ class CgemConverter(object):
 # __sub__
 
 class ConvertRa(CgemConverter):
-    raCgemUnits = '0'
+
+    # 2025-01-07 __init__ creates an object with the intenal default
+    # values of 0:0:0 and creates an internal RA in Cgem units in the
+    # variable self.raCgemUnits.
     
     def __init__ (self, hr=0, min=0, sec=0):
         #args = locals()
@@ -68,13 +71,30 @@ class ConvertRa(CgemConverter):
         self.hr  = hr
         self.min = min
         self.sec = sec
+        self.toCgem(hr,min,sec)
 
-    # 2025-01-04 This returns the hex value, which is in CGEM units.
-    # This returned value can be used as the input to the fromCgem
-    # function.
+    # 2025-01-07 toCgem takes the RA with the default values of 0:0:0
+    # and creates a RA value in Cgem units in the variable self.raCgemUnits.
+    # The arguments in RA are saved in the self.[hr,min,sec]
     
-    def toCgem(self):
-        self.raInSeconds = (float(self.hr) * 3600 + float(self.min)  * 60.0 + float(self.sec)) * 15.0
+    def toCgem (self, hr, min, sec=0):
+        self.hr = hr
+        self.min = min
+        self.sec = sec
+        self.__oldToCgem()
+        return self.raCgemUnits
+
+    # 2025-01-07 This is the old toCgem function that incorporates the
+    # logic for the Cgem unit conversion. I just left this name, but
+    # is really intended to be a private function - but I'm not sure how
+    # to implement that parigm in python. Looks like adding the __ as
+    # a prefix is the way to do it.
+    
+    def __oldToCgem(self):
+        self.raInSeconds = (float(self.hr)          * \
+                            3600 + float(self.min)  * \
+                            60.0 + float(self.sec)) * \
+                            15.0
         
         if int(self.hr) < 0 or int(self.hr) > 23:
             raise RaError.message('hour out of range')
@@ -95,37 +115,75 @@ class ConvertRa(CgemConverter):
         for i in range (0,addCharacters):
             strGotoValue = '0' + strGotoValue
 
-        return str.upper(strGotoValue)
+        self.raCgemUnits = str.upper(strGotoValue)
+        
+        return self.raCgemUnits
 
-    # 2025-01-04 This functions returns the hr,min,sec of the RA from
-    # the CGEM units. The CGEM units are returned from the function
-    # toCgem.
-
-
-    # 2025-01-04 No idea why I using xhr, xmin, xsec in the function.
-    # I'm assuming there was some kind of name collision I was trying
-    # to avoid.
+    # 2025-01-07 Another poorly named fuction. This one takes the
+    # internal value of the RA in Cgem units and coverts them to an
+    # RA as [hr,min,sec]
     
-    def fromCgem(self, cgemUnits):
-        x = (int(cgemUnits,16)) >> 8
+    def fromCgem(self):
+        x = (int(self.raCgemUnits,16)) >> 8
         seconds = x / 15.0 / 12.0 / CgemConverter.conversionFactor
-        xhr = int(seconds / 3600.0)
-        xmin = int((seconds - (xhr * 3600.0)) / 60.0)
-        xsec = int(seconds - (xhr * 3600.0) - (xmin * 60.0))
-        returnValue = str(xhr) + 'h' + str(xmin) + 'm' + str(xsec) + 's'
-        return [xhr, xmin, xsec]
+        hr = int(seconds / 3600.0)
+        min = int((seconds - (hr * 3600.0)) / 60.0)
+        sec = int(seconds - (hr * 3600.0) - (min * 60.0))
+        returnValue = str(hr) + 'h' + str(min) + 'm' + str(sec) + 's'
+        return [hr, min, sec]
 
-    def getSeconds(self):
+    # 2025-01-07 This is also private and only used in subtraction
+    # method defined below.
+    
+    def __getSeconds(self):
         return ((float(self.hr )   * 3600.0) +
                 (float(self.min)   *   60.0) +
                 (float(self.sec))) *   15.0
 
-    # define subtracttion
+    # 2025-01-07 This sets the RA for the class in both RA[hr:min:sec]
+    # and in Cgem Units in the variable self.raCgemUnits.
+    
+    def set (self, hr, min, sec):
+        self.hr = hr
+        self.min = min
+        self.sec = sec
+        self.__oldToCgem()
+        return self.raCgemUnits
+
+    # 2025-01-07 getHrMinSec retrieves the current RA [hr:min:sec]
+    # value.
+    
+    def getHrMinSec (self):
+        return [self.hr, self.min, self.sec]
+
+    # 2025-01-07 getCgemUnits retireves the current RA in Cgem units.
+    
+    def getCgemUnits (self):
+        return self.raCgemUnits
+
+    # 2025-01-07 This is used more for debugging but allows me to set
+    # the RA in Cgem units directly as a hex value. I'm not even sure
+    # if this function is even necessary.
+    
+    def setHex (self, hex):
+        self.raCgemUnits = str.upper(hex)
+        return self.raCgemUnits
+    
+    # define subtraction
 
     def __sub__ (self, y):
-        xSeconds = self.getSeconds()
+        xSeconds = self.__getSeconds()
         ySeconds = y.getSeconds()
         return xSeconds - ySeconds
+
+    def __lt__ (self,y):
+        return self.__getSeconds() < y.__getSeconds()
+
+    def __le__ (self,y):
+        return self.__getSeconds() <= y.__getSeconds()
+
+    def __eq__ (self,y):
+        return self.__getSeconds() == y.__getSeconds()
     
 # The class CovertDec handles conversion to and from cgem units for
 # the Dec. The methods defined in the class are:
@@ -138,18 +196,35 @@ class ConvertRa(CgemConverter):
 # __eq__
 
 class ConvertDec(CgemConverter):
-    decCgemUnits = '0'
+
+    # 2025-01-07 __init__ creates an object with the intenal default
+    # values of 0:0:0 and creates an internal Declination in Cgem units in
+    # the variable self.decCgemUnits.
     
     def __init__ (self, deg=0, min=0, sec=0):
         self.deg = deg
         self.min = min
         self.sec = sec
+        self.toCgem(deg,min,sec)
 
-    # 2025-01-04 This returns the hex value, which is in CGEM units.
-    # This returned value can be used as the input to the fromCgem
-    # function.
+    # 2025-01-07 toCgem takes the Declination with the default values of
+    # 0:0:0 and creates a Declination value in Cgem units in the variable
+    # self.decCgemUnits.
+    # The arguments in RA are saved in the self.[deg,min,sec]
+
+    def toCgem(self, deg, min, sec=0):
+        self.deg = deg
+        self.min = min
+        self.sec = sec
+        self.__oldToCgem()
+        return self.decCgemUnits
+
+    # 2025-01-07 This is the old toCgem function that incorporates the
+    # logic for the Cgem unit conversion. I just left this name, but
+    # is really intended to be a private function. Looks like adding
+    # the __ as a prefix is the way to do it.
     
-    def toCgem(self):
+    def __oldToCgem(self):
         decNeg = False;
         
         if int(self.deg) < 0:
@@ -181,15 +256,12 @@ class ConvertDec(CgemConverter):
         for i in range (0,addCharacters):
             strGotoValue = '0' + strGotoValue       
 
-        return str.upper(strGotoValue)
+        self.decCgemUnits = str.upper(strGotoValue)
+        return self.decCgemUnits
 
-    # 2025-01-04 This functions returns the deg,min,sec of the Dec. from
-    # the CGEM units. The CGEM units are returned from the function
-    # toCgem.
-
-    # 2025-01-04 No idea why I using xdeg, xmin, xsec in the function.
-    # I'm assuming there was some kind of name collision I was trying
-    # to avoid.
+    # 2025-01-07 Another poorly named fuction. This one takes the
+    # internal value of the RA in Cgem units and coverts them to an
+    # Declination as [deg,min,sec]
     
     def fromCgem (self, cgemUnits):
         x = int(cgemUnits,16) >> 8
@@ -198,23 +270,58 @@ class ConvertDec(CgemConverter):
 
         if seconds > 180.0*60.0*60.0:
             seconds = seconds - (360.0*60.0*60.0)
-        xdeg = int(seconds / 3600.0)
-        xmin = int((seconds - (xdeg * 3600.0)) / 60.0)
-        xsec = int(seconds - (xdeg * 3600.0) - (xmin * 60.0))
-        returnValue = str(xdeg) + 'd' + str(xmin) + 'm' + str(xsec) + 's'
-        return [xdeg, xmin, xsec]
-    
-    def getSeconds(self):
+        deg = int(seconds / 3600.0)
+        min = int((seconds - (deg * 3600.0)) / 60.0)
+        sec = int(seconds - (deg * 3600.0) - (min * 60.0))
+        returnValue = str(deg) + 'd' + str(min) + 'm' + str(sec) + 's'
+        return [deg, min, sec]
+
+    # 2025-01-07 This sets the Declination for the class in both
+    # Dec[deg:min:sec] and in Cgem Units in the variable self.decCgemUnits.
+
+    def set (self, deg, min, sec):
+        self.deg = deg
+        self.min = min
+        self.sec = sec
+        self.__oldToCgem()
+        return self.decCgemUnits
+
+    # 2025-01-07 getDegMinSec retrieves the current Declination [deg:min:sec]
+    # value.
+
+    def getDegMinSec (self):
+        return [self.deg, self.min, self.sec]
+
+    # 2025-01-07 getCgemUnits retireves the current Declination in Cgem units.
+ 
+    def getCgemUnits (self):
+        return self.decCgemUnits
+
+    # 2025-01-07 This is used more for debugging but allows me to set
+    # the Declination in Cgem units directly as a hex value. I'm not even
+    # sure if this function is even necessary.
+ 
+    def setHex (self, hex):
+        self.decCgemUnits = str.upper(hex)
+
+    #2025-01-07 Math functions:
+        
+    def __getSeconds(self):
         return (float(self.deg) * 60.0 * 60.0) + (float(self.min)  * 60.0) + float(self.sec)
 
+    def __sub__ (self, y):
+        xSeconds = self.__getSeconds()
+        ySeconds = y.__getSeconds()
+        return xSeconds - ySeconds
+    
     def __lt__ (self,y):
-        return self.getSeconds() < y.getSeconds()
+        return self.__getSeconds() < y.__getSeconds()
 
     def __le__ (self,y):
-        return self.getSeconds() <= y.getSeconds()
+        return self.__getSeconds() <= y.__getSeconds()
 
     def __eq__ (self,y):
-        return self.getSeconds() == y.getSeconds()
+        return self.__getSeconds() == y.__getSeconds()
 
 # The class CovertLst handles conversion to seconds.
 # The methods defined in the class are:
@@ -279,11 +386,11 @@ if __name__ == '__main__':
     print ('Dec deg min sec      : ', dec.deg, ' ', dec.min, ' ', dec.sec)
     
     try:
-        raCgemUnits  = ra.toCgem()
+        raCgemUnits  = ra.oldToCgem()
         print ('raCgemUnits    : ', raCgemUnits)
-        print ('RA  fromCgem   : ', ra.fromCgem(raCgemUnits))
+        print ('RA  fromCgem   : ', ra.fromCgem())
     except:
-        print ('ra.toCgem failed')
+        print ('ra.oldToCgem failed')
 
     try:
         decCgemUnits = dec.toCgem()
@@ -300,7 +407,7 @@ if __name__ == '__main__':
     
     print ('cgemRa, cgemDec: ', cgemRa, cgemDec)
 
-    print ('RA : ', ra.fromCgem(cgemRa))
+    print ('RA : ', ra.fromCgem())
     print ('Dec: ', dec.fromCgem(cgemDec))
 
     print ()
@@ -311,7 +418,7 @@ if __name__ == '__main__':
     
     print ('cgemRa, cgemDec: ', cgemRa, cgemDec)
 
-    print ('RA : ', ra.fromCgem(cgemRa))
+    print ('RA : ', ra.fromCgem())
     print ('Dec: ', dec.fromCgem(cgemDec))
 
 #    print ('RA   hr min sec: ', CovertRa.fromCgem(cgemRa))
@@ -324,11 +431,11 @@ if __name__ == '__main__':
     print ('Dec deg min sec      : ', dec.deg, ' ', dec.min, ' ', dec.sec)
     
     try:
-        raCgemUnits  = ra.toCgem()
+        raCgemUnits  = ra.oldToCgem()
         print ('raCgemUnits    : ', raCgemUnits)
-        print ('RA  fromCgem   : ', ra.fromCgem(raCgemUnits))
+        print ('RA  fromCgem   : ', ra.fromCgem())
     except:
-        print ('ra.toCgem failed')
+        print ('ra.oldToCgem failed')
 
     try:
         decCgemUnits = dec.toCgem()
@@ -347,11 +454,11 @@ if __name__ == '__main__':
     print ('Dec deg min sec      : ', dec.deg, ' ', dec.min, ' ', dec.sec)
 
     try:
-        raCgemUnits  = ra.toCgem()
+        raCgemUnits  = ra.oldToCgem()
         print ('raCgemUnits    : ', raCgemUnits)
-        print ('RA  fromCgem   : ', ra.fromCgem(raCgemUnits))
+        print ('RA  fromCgem   : ', ra.fromCgem())
     except:
-        print ('ra.toCgem failed')
+        print ('ra.oldToCgem failed')
 
     try:
         decCgemUnits = dec.toCgem()
@@ -370,11 +477,11 @@ if __name__ == '__main__':
     print ('Dec deg min sec      : ', dec.deg, ' ', dec.min, ' ', dec.sec)
 
     try:
-        raCgemUnits  = ra.toCgem()
+        raCgemUnits  = ra.oldToCgem()
         print ('raCgemUnits    : ', raCgemUnits)
-        print ('RA  fromCgem   : ', ra.fromCgem(raCgemUnits))
+        print ('RA  fromCgem   : ', ra.fromCgem())
     except:
-        print ('ra.toCgem failed')
+        print ('ra.oldToCgem failed')
 
     try:
         decCgemUnits = dec.toCgem()
@@ -393,11 +500,11 @@ if __name__ == '__main__':
     print ('Dec deg min sec      : ', dec.deg, ' ', dec.min, ' ', dec.sec)
 
     try:
-        raCgemUnits  = ra.toCgem()
+        raCgemUnits  = ra.oldToCgem()
         print ('raCgemUnits    : ', raCgemUnits)
-        print ('RA  fromCgem   : ', ra.fromCgem(raCgemUnits))
+        print ('RA  fromCgem   : ', ra.fromCgem())
     except:
-        print ('ra.toCgem failed')
+        print ('ra.oldToCgem failed')
 
     try:
         decCgemUnits = dec.toCgem()
@@ -414,7 +521,7 @@ if __name__ == '__main__':
     
     print ('cgemRa, cgemDec: ', cgemRa, cgemDec)
 
-    print ('RA : ', ra.fromCgem(cgemRa))
+    print ('RA : ', ra.fromCgem())
     print ('Dec: ', dec.fromCgem(cgemDec))
 
     print ()
@@ -425,7 +532,7 @@ if __name__ == '__main__':
     
     print ('cgemRa, cgemDec: ', cgemRa, cgemDec)
 
-    print ('RA : ', ra.fromCgem(cgemRa))
+    print ('RA : ', ra.fromCgem())
     print ('Dec: ', dec.fromCgem(cgemDec))
 
     print ()
@@ -436,7 +543,7 @@ if __name__ == '__main__':
     
     print ('cgemRa, cgemDec: ', cgemRa, cgemDec)
 
-    print ('RA : ', ra.fromCgem(cgemRa))
+    print ('RA : ', ra.fromCgem())
     print ('Dec: ', dec.fromCgem(cgemDec))
 
     print ()
@@ -449,11 +556,11 @@ if __name__ == '__main__':
     print ('Dec deg min sec      : ', dec.deg, ' ', dec.min, ' ', dec.sec)
 
     try:
-        raCgemUnits  = ra.toCgem()
+        raCgemUnits  = ra.oldToCgem()
         print ('raCgemUnits    : ', raCgemUnits)
-        print ('RA  fromCgem   : ', ra.fromCgem(raCgemUnits))
+        print ('RA  fromCgem   : ', ra.fromCgem())
     except:
-        print ('ra.toCgem failed')
+        print ('ra.oldToCgem failed')
 
     try:
         decCgemUnits = dec.toCgem()
@@ -465,8 +572,8 @@ if __name__ == '__main__':
     print ()
     print ()
 
-    raHex       = b'C7582100'
-    raFromCgem  = ra.fromCgem(raHex)
+    ra.setHex('C7582100')
+    raFromCgem  = ra.fromCgem()
     print ('raFromCgem: ', raFromCgem)
 
     decHex      = b'1C761C00'

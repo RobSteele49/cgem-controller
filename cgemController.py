@@ -22,38 +22,32 @@ print ('Enter a negative number for the RA hours wnd the loop will exit.')
 
 loopControl = True
 while loopControl:
-    ra.hr   = input ('raHr   : ')
+    raHr   = input ('hr     : ')
     
-# Touch base, with Zach, see if using an exit() here would by python like?
-
-    if int(ra.hr) <= -1:
+    if int(raHr) <= -1:
         print ('User specified time to quit')
         loopControl = False
     else:
-        ra.min  = input ('raMin  : ')
-        ra.sec  = input ('raSec  : ')
+        raMin  = input ('raMin  : ')
+        raSec  = input ('raSec  : ')
     
-        dec.deg = input ('decDeg : ')
-        dec.min = input ('decMin : ')
-        dec.sec = input ('decSec : ')
-        
-        print ('dec.deg : ', dec.deg)
+        decDeg = input ('decDeg : ')
+        decMin = input ('decMin : ')
+        decSec = input ('decSec : ')
 
-        print ('Execute the HP goto command.')
-        print (f'RA  : {ra.toCgem()}')
-        print (f'DEC : {dec.toCgem()}')
+        ra.set(raHr, raMin, raSec)
+        dec.set(decDeg, decMin, decSec)
+        
+        print (f'RA  : {ra.getCgemUnits()}')
+        print (f'DEC : {dec.getCgemUnits()}')
 
-        # 2025-01-04 ra is of type 'convertRaDecToCgemUnits.ConvertRa'
-        # and dec is of type 'convertRaDecToGemUnits.ConvertDec'
-        # Need to build a check for that.
-        
-        
+        print ('Execute the HP goto command.')        
         cgem.gotoCommandWithHP (ra, dec)
         # 2025-01-04 request HP return value
         (returnRa, returnDec) = cgem.requestHighPrecisionRaDec()
         
-        raHrMinSec   = ra.fromCgem(returnRa)
-        decDegMinSec = dec.fromCgem(returnDec)
+        raHrMinSec   = ra.getHrMinSec()
+        decDegMinSec = dec.getDegMinSec()
 
         print (raHrMinSec)
         print (decDegMinSec)

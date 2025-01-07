@@ -173,7 +173,8 @@ class CgemInterface:
         print ('Inside of cgemInterface.py.gotoCommandWithHP')
         
         writeString = b'r'+ \
-            ra.toCgem().encode('utf-8')+b','+dec.toCgem().encode('utf-8')
+            ra.getCgemUnits().encode('utf-8')+b','+dec.getCgemUnits().encode('utf-8')
+#            ra.toCgem().encode('utf-8')+b','+dec.toCgem().encode('utf-8')
         print ('writeString : ', writeString)
 
         self.ser.write (writeString)

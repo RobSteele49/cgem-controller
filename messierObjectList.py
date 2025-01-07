@@ -78,7 +78,7 @@ class MessierObjectList:
 
         Simbad.ROW_LIMIT = 120
         try:
-            time.sleep(2)
+            # time.sleep(2)
             tableMessier   = Simbad.query_criteria(cat='M')
             tableMessierOk = True
             print ('Length of Messier table : ', len(tableMessier))
@@ -89,7 +89,7 @@ class MessierObjectList:
         if tableMessierOk:
             table = tableMessier
         else:
-            time.sleep(2)
+            # time.sleep(2)
             table = Simbad.query_object ('M *', wildcard=True, verbose=False)
             
         print ('Length of Messier objects table: ', len(table))
